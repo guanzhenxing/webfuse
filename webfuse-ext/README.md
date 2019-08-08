@@ -1,5 +1,11 @@
 # webfuse-ext
 
+## modules
+
+### webufse-ext-kit
+
+不常用（扩展）的工具类
+
 ## TODO
 
 - webfuse-ext-logger
