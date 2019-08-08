@@ -364,6 +364,7 @@
     <modules>
 
         <module>webfuse-core</module>
+        <module>webfuse-framework</module>
 
 
     </modules>
