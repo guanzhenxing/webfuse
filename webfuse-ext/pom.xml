@@ -12,16 +12,9 @@
     <artifactId>webfuse-ext</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>webfuse-ext-odata</module>
-        <module>webfuse-ext-excel</module>
+
         <module>webfuse-ext-kit</module>
-        <module>webfuse-ext-monitor</module>
-        <module>webfuse-ext-http</module>
-        <module>webfuse-ext-qrcode</module>
-        <module>webfuse-ext-bloom</module>
-        <module>webfuse-ext-spring</module>
-        <module>webfuse-ext-logger</module>
-        <module>webfuse-ext-limiter</module>
+
     </modules>
 
 
