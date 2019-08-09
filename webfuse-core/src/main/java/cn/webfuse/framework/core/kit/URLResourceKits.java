@@ -27,6 +27,10 @@ public class URLResourceKits {
      * 兼容无前缀, classpath:, file:// 的情况获取文件
      * <p>
      * 如果以classpath: 定义的文件不存在会抛出IllegalArgumentException异常，以file://定义的则不会
+     *
+     * @param generalPath
+     * @return
+     * @throws IOException
      */
     public static File asFile(String generalPath) throws IOException {
         if (StringUtils.startsWith(generalPath, CLASSPATH_PREFIX)) {
@@ -44,6 +48,10 @@ public class URLResourceKits {
 
     /**
      * 兼容无前缀, classpath:, file:// 的情况打开文件成Stream
+     *
+     * @param generalPath
+     * @return
+     * @throws IOException
      */
     public static InputStream asStream(String generalPath) throws IOException {
         if (StringUtils.startsWith(generalPath, CLASSPATH_PREFIX)) {
@@ -74,6 +82,13 @@ public class URLResourceKits {
         }
     }
 
+    /**
+     * toURI
+     *
+     * @param location
+     * @return
+     * @throws URISyntaxException
+     */
     public static URI toURI(String location) throws URISyntaxException {
         return new URI(StringUtils.replace(location, " ", "%20"));
     }

@@ -34,6 +34,11 @@ public class ValidatorKits {
 
     /**
      * 调用JSR303的validate方法, 验证失败时抛出ConstraintViolationException.
+     *
+     * @param validator
+     * @param object
+     * @param groups
+     * @throws ConstraintViolationException
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static void validateWithException(Validator validator, Object object, Class<?>... groups)
@@ -46,6 +51,9 @@ public class ValidatorKits {
 
     /**
      * 辅助方法, 转换ConstraintViolationException中的Set<ConstraintViolations>中为List<message>.
+     *
+     * @param e
+     * @return
      */
     public static List<String> extractMessage(ConstraintViolationException e) {
         return extractMessage(e.getConstraintViolations());
@@ -53,6 +61,9 @@ public class ValidatorKits {
 
     /**
      * 辅助方法, 转换Set<ConstraintViolation>为List<message>
+     *
+     * @param constraintViolations
+     * @return
      */
     @SuppressWarnings("rawtypes")
     public static List<String> extractMessage(Set<? extends ConstraintViolation> constraintViolations) {
@@ -65,6 +76,9 @@ public class ValidatorKits {
 
     /**
      * 辅助方法, 转换ConstraintViolationException中的Set<ConstraintViolations>为Map<property, message>.
+     *
+     * @param e
+     * @return
      */
     public static Map<String, String> extractPropertyAndMessage(ConstraintViolationException e) {
         return extractPropertyAndMessage(e.getConstraintViolations());
@@ -72,6 +86,9 @@ public class ValidatorKits {
 
     /**
      * 辅助方法, 转换Set<ConstraintViolation>为Map<property, message>.
+     *
+     * @param constraintViolations
+     * @return
      */
     @SuppressWarnings("rawtypes")
     public static Map<String, String> extractPropertyAndMessage(Set<? extends ConstraintViolation> constraintViolations) {
@@ -84,6 +101,9 @@ public class ValidatorKits {
 
     /**
      * 辅助方法, 转换ConstraintViolationException中的Set<ConstraintViolations>为List<propertyPath message>.
+     *
+     * @param e
+     * @return
      */
     public static List<String> extractPropertyAndMessageAsList(ConstraintViolationException e) {
         return extractPropertyAndMessageAsList(e.getConstraintViolations(), " ");
@@ -91,6 +111,9 @@ public class ValidatorKits {
 
     /**
      * 辅助方法, 转换Set<ConstraintViolations>为List<propertyPath message>.
+     *
+     * @param constraintViolations
+     * @return
      */
     @SuppressWarnings("rawtypes")
     public static List<String> extractPropertyAndMessageAsList(Set<? extends ConstraintViolation> constraintViolations) {
@@ -99,6 +122,10 @@ public class ValidatorKits {
 
     /**
      * 辅助方法, 转换ConstraintViolationException中的Set<ConstraintViolations>为List<propertyPath +separator+ message>.
+     *
+     * @param e
+     * @param separator
+     * @return
      */
     public static List<String> extractPropertyAndMessageAsList(ConstraintViolationException e, String separator) {
         return extractPropertyAndMessageAsList(e.getConstraintViolations(), separator);
@@ -106,6 +133,10 @@ public class ValidatorKits {
 
     /**
      * 辅助方法, 转换Set<ConstraintViolation>为List<propertyPath +separator+ message>.
+     *
+     * @param constraintViolations
+     * @param separator
+     * @return
      */
     @SuppressWarnings("rawtypes")
     public static List<String> extractPropertyAndMessageAsList(Set<? extends ConstraintViolation> constraintViolations,
@@ -117,6 +148,12 @@ public class ValidatorKits {
         return errorMessages;
     }
 
+    /**
+     * 验证实体
+     *
+     * @param obj
+     * @param <T>
+     */
     public static <T> void validateEntity(T obj) {
         ValidationResult result = new ValidationResult();
         Set<ConstraintViolation<T>> set = validator.validate(obj, Default.class);
@@ -155,6 +192,13 @@ public class ValidatorKits {
     }
 
 
+    /**
+     * 验证Property
+     *
+     * @param obj
+     * @param propertyName
+     * @param <T>
+     */
     public static <T> void validateProperty(T obj, String propertyName) {
         logger.debug("校验参数 {}", propertyName);
         ValidationResult result = new ValidationResult();

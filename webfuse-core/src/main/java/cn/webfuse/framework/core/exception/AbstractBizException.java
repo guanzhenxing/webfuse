@@ -2,6 +2,8 @@ package cn.webfuse.framework.core.exception;
 
 /**
  * 抽象的业务异常类
+ *
+ * @author Jesen
  */
 public abstract class AbstractBizException extends RuntimeException {
 
@@ -27,6 +29,15 @@ public abstract class AbstractBizException extends RuntimeException {
      */
     private String developerMessage;
 
+    /**
+     * 抽象的业务异常
+     *
+     * @param status           状态码（可做HTTP状态码使用）
+     * @param code             异常代码
+     * @param message          异常消息
+     * @param throwable        异常throwable
+     * @param developerMessage 开发者消息
+     */
     public AbstractBizException(int status, String code, String message, Throwable throwable, String developerMessage) {
         this.status = status;
         this.code = code;
@@ -35,6 +46,14 @@ public abstract class AbstractBizException extends RuntimeException {
         this.developerMessage = developerMessage;
     }
 
+    /**
+     * 抽象的业务异常
+     *
+     * @param status    状态码（可做HTTP状态码使用）
+     * @param code      异常代码
+     * @param message   异常消息
+     * @param throwable 异常throwable
+     */
     public AbstractBizException(int status, String code, String message, Throwable throwable) {
         this.status = status;
         this.code = code;
@@ -42,21 +61,42 @@ public abstract class AbstractBizException extends RuntimeException {
         this.throwable = throwable;
     }
 
+    /**
+     * 抽象的业务异常
+     *
+     * @param status  状态码（可做HTTP状态码使用）
+     * @param code    异常代码
+     * @param message 异常消息
+     */
     public AbstractBizException(int status, String code, String message) {
         this.status = status;
         this.code = code;
         this.message = message;
     }
 
+    /**
+     * 抽象的业务异常
+     *
+     * @param code    异常代码
+     * @param message 异常消息
+     */
     public AbstractBizException(String code, String message) {
         this.code = code;
         this.message = message;
     }
 
+    /**
+     * 抽象的业务异常
+     *
+     * @param message 异常消息
+     */
     public AbstractBizException(String message) {
         super(message);
     }
 
+    /**
+     * 抽象的业务异常
+     */
     public AbstractBizException() {
     }
 

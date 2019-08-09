@@ -22,6 +22,9 @@ public class SystemPropertiesKits {
 
     /**
      * 读取Boolean类型的系统变量，为空时返回null，代表未设置，而不是Boolean.getBoolean()的false.
+     *
+     * @param name
+     * @return
      */
     public static Boolean getBoolean(String name) {
         String stringResult = System.getProperty(name);
@@ -31,6 +34,10 @@ public class SystemPropertiesKits {
 
     /**
      * 读取Boolean类型的系统变量，为空时返回默认值, 而不是Boolean.getBoolean()的false.
+     *
+     * @param name
+     * @param defaultValue
+     * @return
      */
     public static Boolean getBoolean(String name, Boolean defaultValue) {
         String stringResult = System.getProperty(name);
@@ -39,6 +46,9 @@ public class SystemPropertiesKits {
 
     /**
      * 读取String类型的系统变量，为空时返回null.
+     *
+     * @param name
+     * @return
      */
     public static String getString(String name) {
         return System.getProperty(name);

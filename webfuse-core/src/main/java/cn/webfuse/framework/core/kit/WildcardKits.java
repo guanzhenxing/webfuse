@@ -25,6 +25,12 @@ public class WildcardKits {
 
     /**
      * Internal matching recursive function.
+     *
+     * @param string
+     * @param pattern
+     * @param sNdxConst
+     * @param pNdxConst
+     * @return
      */
     private static boolean match(CharSequence string, CharSequence pattern, final int sNdxConst, final int pNdxConst) {
 
@@ -107,6 +113,9 @@ public class WildcardKits {
     /**
      * Matches string to at least one pattern. Returns index of matched pattern, or <code>-1</code> otherwise.
      *
+     * @param src
+     * @param patterns
+     * @return
      * @see #match(CharSequence, CharSequence)
      */
     public static int matchOne(String src, String... patterns) {
@@ -126,6 +135,9 @@ public class WildcardKits {
     /**
      * Matches path to at least one pattern. Returns index of matched pattern or <code>-1</code> otherwise.
      *
+     * @param platformDependentPath
+     * @param patterns
+     * @return
      * @see #matchPath(String, String)
      */
     public static int matchPathOne(String platformDependentPath, String... patterns) {
@@ -141,6 +153,10 @@ public class WildcardKits {
      * Matches path against pattern using *, ? and ** wildcards. Both path and the pattern are tokenized on path
      * separators (both \ and /). '**' represents deep tree wildcard, as in Ant. The separator should match the
      * corresponding path
+     *
+     * @param path
+     * @param pattern
+     * @return
      */
     public static boolean matchPath(String path, String pattern) {
         List<String> pathElements = PATH_SPLITTER.splitToList(path);
@@ -150,6 +166,10 @@ public class WildcardKits {
 
     /**
      * Match tokenized string and pattern.
+     *
+     * @param tokens
+     * @param patterns
+     * @return
      */
     protected static boolean matchTokens(String[] tokens, String[] patterns) {
         int patNdxStart = 0;

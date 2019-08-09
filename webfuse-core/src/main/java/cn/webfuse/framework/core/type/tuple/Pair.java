@@ -17,6 +17,9 @@ public class Pair<L, R> {
 
     /**
      * Creates a new pair.
+     *
+     * @param left  左边的元素
+     * @param right 右边的元素
      */
     public Pair(@Nullable L left, @Nullable R right) {
         this.left = left;
@@ -74,6 +77,12 @@ public class Pair<L, R> {
 
     /**
      * 根据等号左边的泛型，自动构造合适的Pair
+     *
+     * @param left  左边的元素
+     * @param right 右边的元素
+     * @param <L>   左边的元素类型
+     * @param <R>   右边的元素类型
+     * @return
      */
     public static <L, R> Pair<L, R> of(@Nullable L left, @Nullable R right) {
         return new Pair<L, R>(left, right);

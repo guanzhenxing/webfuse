@@ -19,6 +19,10 @@ public class Triple<L, M, R> {
 
     /**
      * Creates a new Triple.
+     *
+     * @param left   左边元素
+     * @param middle 中间元素
+     * @param right  右边元素
      */
     public Triple(@Nullable L left, @Nullable M middle, @Nullable R right) {
         this.left = left;
@@ -90,6 +94,14 @@ public class Triple<L, M, R> {
 
     /**
      * 根据等号左边的泛型，自动构造合适的Triple
+     *
+     * @param left   左边元素
+     * @param middle 中间元素
+     * @param right  右边元素
+     * @param <L>    左边的元素类型
+     * @param <M>    中间的元素类型
+     * @param <R>    右边的元素类型
+     * @return
      */
     public static <L, M, R> Triple<L, M, R> of(@Nullable L left, @Nullable M middle, @Nullable R right) {
         return new Triple<L, M, R>(left, middle, right);

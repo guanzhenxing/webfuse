@@ -46,6 +46,10 @@ public class CloneableRuntimeException extends RuntimeException implements Clone
 
     /**
      * 简便函数，定义静态异常时使用
+     *
+     * @param throwClazz  抛出异常的类
+     * @param throwMethod 抛出异常的方法
+     * @return
      */
     public CloneableRuntimeException setStackTrace(Class<?> throwClazz, String throwMethod) {
         ExceptionKits.setStackTrace(this, throwClazz, throwMethod);
@@ -54,6 +58,8 @@ public class CloneableRuntimeException extends RuntimeException implements Clone
 
     /**
      * 简便函数, clone并重新设定Message
+     *
+     * @param message 异常的消息
      */
     public CloneableRuntimeException clone(String message) {
         CloneableRuntimeException newException = this.clone();
@@ -63,6 +69,8 @@ public class CloneableRuntimeException extends RuntimeException implements Clone
 
     /**
      * 简便函数, 重新设定Message
+     *
+     * @param message 异常的消息
      */
     public CloneableRuntimeException setMessage(String message) {
         this.message = message;
