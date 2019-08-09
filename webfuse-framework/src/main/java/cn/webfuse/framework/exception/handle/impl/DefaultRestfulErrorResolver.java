@@ -1,14 +1,12 @@
 package cn.webfuse.framework.exception.handle.impl;
 
-import cn.webfuse.framework.core.exception.AbstractBizException;
-import cn.webfuse.framework.core.kit.mapper.JsonMapper;
+import cn.webfuse.core.exception.AbstractBizException;
 import cn.webfuse.framework.exception.handle.RestfulError;
 import cn.webfuse.framework.exception.handle.RestfulErrorResolver;
 import cn.webfuse.framework.kit.LocalHostInfoKits;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.MessageSource;

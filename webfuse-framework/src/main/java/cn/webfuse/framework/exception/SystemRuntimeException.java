@@ -1,6 +1,6 @@
 package cn.webfuse.framework.exception;
 
-import cn.webfuse.framework.core.exception.AbstractBizException;
+import cn.webfuse.core.exception.AbstractBizException;
 
 /**
  * 系统运行时异常

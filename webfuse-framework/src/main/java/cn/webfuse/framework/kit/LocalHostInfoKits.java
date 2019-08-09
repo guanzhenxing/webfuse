@@ -1,6 +1,6 @@
 package cn.webfuse.framework.kit;
 
-import cn.webfuse.framework.core.kit.SystemPropertiesKits;
+import cn.webfuse.core.kit.SystemPropertiesKits;
 import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

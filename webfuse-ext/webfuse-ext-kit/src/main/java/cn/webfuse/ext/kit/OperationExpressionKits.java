@@ -1,6 +1,6 @@
 package cn.webfuse.ext.kit;
 
-import cn.webfuse.framework.core.kit.NumberKits;
+import cn.webfuse.core.kit.NumberKits;
 
 import java.util.*;
 

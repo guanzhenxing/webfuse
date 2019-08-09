@@ -1,7 +1,6 @@
 package cn.webfuse.framework.model;
 
-import cn.webfuse.framework.core.kit.mapper.BeanMapper;
-import org.springframework.context.annotation.Bean;
+import cn.webfuse.core.kit.mapper.BeanMapper;
 
 import java.io.Serializable;
 import java.util.Map;

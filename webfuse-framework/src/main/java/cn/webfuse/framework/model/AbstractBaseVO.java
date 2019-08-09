@@ -1,8 +1,8 @@
 package cn.webfuse.framework.model;
 
-import cn.webfuse.framework.core.kit.mapper.BeanMapper;
-import cn.webfuse.framework.core.kit.mapper.JsonMapper;
-import cn.webfuse.framework.core.kit.reflect.ReflectionKits;
+import cn.webfuse.core.kit.mapper.BeanMapper;
+import cn.webfuse.core.kit.mapper.JsonMapper;
+import cn.webfuse.core.kit.reflect.ReflectionKits;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.io.Serializable;

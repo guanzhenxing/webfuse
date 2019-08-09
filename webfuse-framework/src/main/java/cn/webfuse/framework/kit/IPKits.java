@@ -6,8 +6,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
 
-import cn.webfuse.framework.core.kit.NumberKits;
-import cn.webfuse.framework.core.kit.StringKits;
+import cn.webfuse.core.kit.NumberKits;
+import cn.webfuse.core.kit.StringKits;
 import com.google.common.net.InetAddresses;
 
 
