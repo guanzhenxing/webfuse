@@ -6,7 +6,7 @@
 
     <groupId>cn.webfuse</groupId>
     <artifactId>webfuse</artifactId>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
@@ -403,6 +403,7 @@
         <module>webfuse-ext</module>
         <module>webfuse-framework</module>
         <module>webfuse-starters</module>
+        <module>webfuse-data</module>
 
 
     </modules>

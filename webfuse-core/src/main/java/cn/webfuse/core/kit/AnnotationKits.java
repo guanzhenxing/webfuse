@@ -1,4 +1,4 @@
-package cn.webfuse.core.kit.reflect;
+package cn.webfuse.core.kit;
 
 import org.apache.commons.lang3.ClassUtils;
 

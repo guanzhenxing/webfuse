@@ -18,4 +18,16 @@ public class BooleanKits {
         return BooleanUtils.toBooleanDefaultIfNull(BooleanUtils.toBooleanObject(str), valueIfNull);
     }
 
+    /**
+     * 支持true/false,on/off, y/n, yes/no的转换, str为空或无法分析时返回defaultValue
+     *
+     * @param obj         true/false,on/off, y/n, yes/no
+     * @param valueIfNull 默认值
+     * @return {@code true} or {@code false}
+     */
+    public static Boolean toBooleanDefaultIfNull(final Object obj, final boolean valueIfNull) {
+        String str = ObjectKits.toPrettyString(obj);
+        return toBooleanDefaultIfNull(str, valueIfNull);
+    }
+
 }

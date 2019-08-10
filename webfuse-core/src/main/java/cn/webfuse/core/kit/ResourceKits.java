@@ -1,6 +1,5 @@
 package cn.webfuse.core.kit;
 
-import cn.webfuse.core.kit.reflect.ClassLoaderKits;
 import com.google.common.io.Resources;
 
 import java.io.IOException;

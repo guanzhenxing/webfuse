@@ -1,6 +1,5 @@
 package cn.webfuse.core.kit;
 
-import cn.webfuse.core.kit.reflect.ClassKits;
 import com.google.common.base.Objects;
 
 import java.math.BigDecimal;
@@ -81,7 +80,6 @@ public class ObjectKits {
         }
 
         Class<?> type = value.getClass();
-
         if (type.isArray()) {
             Class componentType = type.getComponentType();
 
@@ -119,7 +117,7 @@ public class ObjectKits {
         } else if (componentType == char.class) {
             sb.append(Arrays.toString((char[]) value));
         } else {
-            throw new IllegalArgumentException("unsupport array type");
+            throw new IllegalArgumentException("unsupported array type");
         }
         return sb.toString();
     }

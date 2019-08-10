@@ -9,13 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>webfuse-starters</artifactId>
     <packaging>pom</packaging>
-
     <modules>
-        <module>webfuse-starter</module>
-        <module>webfuse-starter-framework</module>
+        <module>webfuse-data-cache</module>
     </modules>
+
+    <artifactId>webfuse-data</artifactId>
 
 
 </project>

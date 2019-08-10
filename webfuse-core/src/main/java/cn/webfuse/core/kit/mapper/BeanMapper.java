@@ -1,7 +1,7 @@
 package cn.webfuse.core.kit.mapper;
 
 import cn.webfuse.core.kit.ArrayKits;
-import cn.webfuse.core.kit.reflect.ReflectionKits;
+import cn.webfuse.core.kit.ReflectionKits;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.dozermapper.core.DozerBeanMapperBuilder;

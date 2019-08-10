@@ -17,3 +17,4 @@
 - webfuse-ext-excel
 - webfuse-ext-odata
 - webfuse-ext-qrcode
+- webfuse-ext-channel/listener
