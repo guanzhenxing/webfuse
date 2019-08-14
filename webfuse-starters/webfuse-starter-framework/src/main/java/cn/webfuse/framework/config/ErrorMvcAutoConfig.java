@@ -22,6 +22,7 @@ import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolve
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -72,6 +73,12 @@ public class ErrorMvcAutoConfig {
      */
     private final ServerProperties serverProperties;
 
+    @Autowired
+    private LocaleResolver localeResolver;
+
+    @Autowired
+    private MessageSource messageSource;
+
     /**
      * 构造函数
      *
@@ -106,7 +113,8 @@ public class ErrorMvcAutoConfig {
     public DefaultRestfulExceptionHandler defaultHandlerRestfulExceptionResolver() {
 
         DefaultRestfulErrorResolver defaultRestfulErrorResolver = new DefaultRestfulErrorResolver(getExceptionMappingDefinitions());
-        defaultRestfulErrorResolver.setLocaleResolver(localeResolver());
+        defaultRestfulErrorResolver.setLocaleResolver(localeResolver);
+        defaultRestfulErrorResolver.setMessageSource(messageSource);
         defaultRestfulErrorResolver.setDefaultDocument(webMvcProperties.getRestfulExceptionHandle().getDefaultDocument());
         defaultRestfulErrorResolver.setShowDeveloperMessage(webMvcProperties.getRestfulExceptionHandle().isShowDeveloperMessage());
 
@@ -157,15 +165,6 @@ public class ErrorMvcAutoConfig {
                             mapping.getMessage(), mapping.getDeveloperMessage(), document);
                 })
                 .collect(Collectors.toList());
-    }
-
-    /**
-     * 定义本地化
-     */
-    @Bean
-    public LocaleResolver localeResolver() {
-        //通过检验HTTP请求的accept-language头部来解析区域。
-        return new AcceptHeaderLocaleResolver();
     }
 
 
