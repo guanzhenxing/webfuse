@@ -12,10 +12,7 @@
     <artifactId>webfuse-ext</artifactId>
     <packaging>pom</packaging>
     <modules>
-
         <module>webfuse-ext-kit</module>
-        <module>webfuse-ext-i18n</module>
-
     </modules>
 
 

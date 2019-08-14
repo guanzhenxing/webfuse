@@ -11,7 +11,6 @@
 
     <packaging>pom</packaging>
     <modules>
-        <module>webfuse-data-cache</module>
     </modules>
 
     <artifactId>webfuse-data</artifactId>

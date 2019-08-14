@@ -7,10 +7,7 @@ import com.google.common.base.Utf8;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
@@ -203,7 +200,7 @@ public class StringKits {
     public static String getReplaceFirst(final String input,
                                          final String regex,
                                          final String replacement) {
-        if (input == null){
+        if (input == null) {
             return "";
         }
         return Pattern.compile(regex).matcher(input).replaceFirst(replacement);
@@ -223,7 +220,7 @@ public class StringKits {
     public static String getReplaceAll(final String input,
                                        final String regex,
                                        final String replacement) {
-        if (input == null){
+        if (input == null) {
             return "";
         }
         return Pattern.compile(regex).matcher(input).replaceAll(replacement);
@@ -374,4 +371,157 @@ public class StringKits {
 
         return sbuf.toString();
     }
+
+    //######## from org.springframework.util.StringUtils
+
+    /**
+     * Convert a comma delimited list (e.g., a row from a CSV file) into an
+     * array of strings.
+     *
+     * @param str the input {@code String} (potentially {@code null} or empty)
+     * @return an array of strings, or the empty array in case of empty input
+     */
+    public static String[] commaDelimitedListToStringArray(String str) {
+        return delimitedListToStringArray(str, ",");
+    }
+
+    /**
+     * Take a {@code String} that is a delimited list and convert it into a
+     * {@code String} array.
+     * <p>A single {@code delimiter} may consist of more than one character,
+     * but it will still be considered as a single delimiter string, rather
+     * than as bunch of potential delimiter characters, in contrast to
+     * {@link #tokenizeToStringArray}.
+     *
+     * @param str       the input {@code String} (potentially {@code null} or empty)
+     * @param delimiter the delimiter between elements (this is a single delimiter,
+     *                  rather than a bunch individual delimiter characters)
+     * @return an array of the tokens in the list
+     * @see #tokenizeToStringArray
+     */
+    public static String[] delimitedListToStringArray(String str, String delimiter) {
+        return delimitedListToStringArray(str, delimiter, null);
+    }
+
+    /**
+     * Take a {@code String} that is a delimited list and convert it into
+     * a {@code String} array.
+     * <p>A single {@code delimiter} may consist of more than one character,
+     * but it will still be considered as a single delimiter string, rather
+     * than as bunch of potential delimiter characters, in contrast to
+     * {@link #tokenizeToStringArray}.
+     *
+     * @param str           the input {@code String} (potentially {@code null} or empty)
+     * @param delimiter     the delimiter between elements (this is a single delimiter,
+     *                      rather than a bunch individual delimiter characters)
+     * @param charsToDelete a set of characters to delete; useful for deleting unwanted
+     *                      line breaks: e.g. "\r\n\f" will delete all new lines and line feeds in a {@code String}
+     * @return an array of the tokens in the list
+     * @see #tokenizeToStringArray
+     */
+    public static String[] delimitedListToStringArray(String str, String delimiter, String charsToDelete) {
+
+        if (str == null) {
+            return new String[0];
+        }
+        if (delimiter == null) {
+            return new String[]{str};
+        }
+
+        List<String> result = new ArrayList<>();
+        if (delimiter.isEmpty()) {
+            for (int i = 0; i < str.length(); i++) {
+                result.add(deleteAny(str.substring(i, i + 1), charsToDelete));
+            }
+        } else {
+            int pos = 0;
+            int delPos;
+            while ((delPos = str.indexOf(delimiter, pos)) != -1) {
+                result.add(deleteAny(str.substring(pos, delPos), charsToDelete));
+                pos = delPos + delimiter.length();
+            }
+            if (str.length() > 0 && pos <= str.length()) {
+                // Add rest of String, but not in case of empty input.
+                result.add(deleteAny(str.substring(pos), charsToDelete));
+            }
+        }
+        return toStringArray(result);
+    }
+
+
+    /**
+     * Delete any character in a given {@code String}.
+     *
+     * @param inString      the original {@code String}
+     * @param charsToDelete a set of characters to delete.
+     *                      E.g. "az\n" will delete 'a's, 'z's and new lines.
+     * @return the resulting {@code String}
+     */
+    public static String deleteAny(String inString, String charsToDelete) {
+        if (!hasLength(inString) || !hasLength(charsToDelete)) {
+            return inString;
+        }
+
+        StringBuilder sb = new StringBuilder(inString.length());
+        for (int i = 0; i < inString.length(); i++) {
+            char c = inString.charAt(i);
+            if (charsToDelete.indexOf(c) == -1) {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Copy the given {@link Collection} into a {@code String} array.
+     * <p>The {@code Collection} must contain {@code String} elements only.
+     *
+     * @param collection the {@code Collection} to copy
+     *                   (potentially {@code null} or empty)
+     * @return the resulting {@code String} array
+     */
+    public static String[] toStringArray(Collection<String> collection) {
+        return (collection != null ? collection.toArray(new String[0]) : new String[0]);
+    }
+
+    /**
+     * Tokenize the given {@code String} into a {@code String} array via a
+     * {@link StringTokenizer}.
+     * <p>The given {@code delimiters} string can consist of any number of
+     * delimiter characters. Each of those characters can be used to separate
+     * tokens. A delimiter is always a single character; for multi-character
+     * delimiters, consider using {@link #delimitedListToStringArray}.
+     *
+     * @param str               the {@code String} to tokenize (potentially {@code null} or empty)
+     * @param delimiters        the delimiter characters, assembled as a {@code String}
+     *                          (each of the characters is individually considered as a delimiter)
+     * @param trimTokens        trim the tokens via {@link String#trim()}
+     * @param ignoreEmptyTokens omit empty tokens from the result array
+     *                          (only applies to tokens that are empty after trimming; StringTokenizer
+     *                          will not consider subsequent delimiters as token in the first place).
+     * @return an array of the tokens
+     * @see java.util.StringTokenizer
+     * @see String#trim()
+     * @see #delimitedListToStringArray
+     */
+    public static String[] tokenizeToStringArray(String str, String delimiters, boolean trimTokens, boolean ignoreEmptyTokens) {
+
+        if (str == null) {
+            return new String[0];
+        }
+
+        StringTokenizer st = new StringTokenizer(str, delimiters);
+        List<String> tokens = new ArrayList<>();
+        while (st.hasMoreTokens()) {
+            String token = st.nextToken();
+            if (trimTokens) {
+                token = token.trim();
+            }
+            if (!ignoreEmptyTokens || token.length() > 0) {
+                tokens.add(token);
+            }
+        }
+        return toStringArray(tokens);
+    }
+
 }
