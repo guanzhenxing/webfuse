@@ -1,6 +1,6 @@
 package cn.webfuse.framework.exception.handle.impl;
 
-import cn.webfuse.core.exception.AbstractBizException;
+import cn.webfuse.framework.exception.BaseWebfuseException;
 import cn.webfuse.framework.exception.handle.RestfulError;
 import cn.webfuse.framework.exception.handle.RestfulErrorResolver;
 import cn.webfuse.framework.kit.LocalHostInfoKits;
@@ -203,16 +203,16 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
         String developerMessage = restfulError.getDeveloperMessage();
         String document = restfulError.getDocument();
 
-        //如果异常继承于AbstractBizException时的处理
-        if (ex instanceof AbstractBizException) {
-            code = ((AbstractBizException) ex).getCode();
-            if (((AbstractBizException) ex).getStatus() != 0) {
-                httpStatus = HttpStatus.valueOf(((AbstractBizException) ex).getStatus());
+        //如果异常继承于BaseWebfuseException时的处理
+        if (ex instanceof BaseWebfuseException) {
+            code = ((BaseWebfuseException) ex).getCode();
+            if (((BaseWebfuseException) ex).getStatus() != 0) {
+                httpStatus = HttpStatus.valueOf(((BaseWebfuseException) ex).getStatus());
             } else {
                 httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             }
             message = ex.getMessage();
-            developerMessage = ((AbstractBizException) ex).getDeveloperMessage();
+            developerMessage = ((BaseWebfuseException) ex).getDeveloperMessage();
             if (StringUtils.isEmpty(developerMessage)) {
                 developerMessage = StringUtils.join(ex.getStackTrace(), "\n");
             }

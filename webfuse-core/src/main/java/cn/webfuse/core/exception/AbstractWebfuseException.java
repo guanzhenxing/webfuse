@@ -5,12 +5,7 @@ package cn.webfuse.core.exception;
  *
  * @author Jesen
  */
-public abstract class AbstractBizException extends RuntimeException {
-
-    /**
-     * 状态码
-     */
-    private int status;
+public abstract class AbstractWebfuseException extends RuntimeException {
 
     /**
      * 错误代码
@@ -32,14 +27,12 @@ public abstract class AbstractBizException extends RuntimeException {
     /**
      * 抽象的业务异常
      *
-     * @param status           状态码（可做HTTP状态码使用）
      * @param code             异常代码
      * @param message          异常消息
      * @param throwable        异常throwable
      * @param developerMessage 开发者消息
      */
-    public AbstractBizException(int status, String code, String message, Throwable throwable, String developerMessage) {
-        this.status = status;
+    public AbstractWebfuseException(String code, String message, Throwable throwable, String developerMessage) {
         this.code = code;
         this.message = message;
         this.throwable = throwable;
@@ -49,13 +42,11 @@ public abstract class AbstractBizException extends RuntimeException {
     /**
      * 抽象的业务异常
      *
-     * @param status    状态码（可做HTTP状态码使用）
      * @param code      异常代码
      * @param message   异常消息
      * @param throwable 异常throwable
      */
-    public AbstractBizException(int status, String code, String message, Throwable throwable) {
-        this.status = status;
+    public AbstractWebfuseException(String code, String message, Throwable throwable) {
         this.code = code;
         this.message = message;
         this.throwable = throwable;
@@ -64,50 +55,30 @@ public abstract class AbstractBizException extends RuntimeException {
     /**
      * 抽象的业务异常
      *
-     * @param status  状态码（可做HTTP状态码使用）
      * @param code    异常代码
      * @param message 异常消息
      */
-    public AbstractBizException(int status, String code, String message) {
-        this.status = status;
+    public AbstractWebfuseException(String code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    /**
-     * 抽象的业务异常
-     *
-     * @param code    异常代码
-     * @param message 异常消息
-     */
-    public AbstractBizException(String code, String message) {
-        this.code = code;
-        this.message = message;
-    }
 
     /**
      * 抽象的业务异常
      *
      * @param message 异常消息
      */
-    public AbstractBizException(String message) {
+    public AbstractWebfuseException(String message) {
         super(message);
     }
 
     /**
      * 抽象的业务异常
      */
-    public AbstractBizException() {
+    public AbstractWebfuseException() {
     }
 
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
     public String getCode() {
         return code;

@@ -1,34 +1,29 @@
 package cn.webfuse.framework.exception;
 
-import cn.webfuse.core.exception.AbstractBizException;
-
 /**
  * 系统运行时异常
  *
  * @author Jesen
  */
-public class SystemRuntimeException extends AbstractBizException {
+public class SystemRuntimeException extends BaseWebfuseException {
 
-    public SystemRuntimeException(int status, String code, String message, Throwable throwable, String developerMessage) {
-        super(status, code, message, throwable, developerMessage);
+    public SystemRuntimeException(String code, String message, Throwable throwable, String developerMessage, int status) {
+        super(code, message, throwable, developerMessage, status);
     }
 
-    public SystemRuntimeException(int status, String code, String message, Throwable throwable) {
-        super(status, code, message, throwable);
+    public SystemRuntimeException(String code, String message, Throwable throwable, int status) {
+        super(code, message, throwable, status);
     }
 
-    public SystemRuntimeException(int status, String code, String message) {
-        super(status, code, message);
+    public SystemRuntimeException(String code, String message, int status) {
+        super(code, message, status);
     }
 
-    public SystemRuntimeException(String code, String message) {
-        super(code, message);
+    public SystemRuntimeException(String message, int status) {
+        super(message, status);
     }
 
-    public SystemRuntimeException(String message) {
-        super(message);
-    }
-
-    public SystemRuntimeException() {
+    public SystemRuntimeException(int status) {
+        super(status);
     }
 }

@@ -73,7 +73,7 @@
 
     <!--for profiles, for env-->
     <profiles>
-        <profile>
+        <profile>   <!--用于开发环境-->
             <id>dev</id>
             <properties>
                 <env>dev</env>
@@ -83,21 +83,21 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
-        <profile>
-            <id>test</id>
+        <profile>   <!--用于测试环境-->
+            <id>qa</id>
             <properties>
-                <env>test</env>
-                <spring.profiles.active>test</spring.profiles.active>
+                <env>qa</env>
+                <spring.profiles.active>qa</spring.profiles.active>
             </properties>
         </profile>
-        <profile>
-            <id>beta</id>
+        <profile>   <!--用于预生产环境-->
+            <id>uat</id>
             <properties>
-                <env>beta</env>
-                <spring.profiles.active>beta</spring.profiles.active>
+                <env>uat</env>
+                <spring.profiles.active>uat</spring.profiles.active>
             </properties>
         </profile>
-        <profile>
+        <profile>   <!--用于正式的生产环境-->
             <id>prod</id>
             <properties>
                 <env>prod</env>

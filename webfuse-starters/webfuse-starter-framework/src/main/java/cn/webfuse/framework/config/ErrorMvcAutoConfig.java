@@ -2,7 +2,7 @@ package cn.webfuse.framework.config;
 
 import cn.webfuse.framework.config.properties.WebMvcProperties;
 import cn.webfuse.framework.constant.BasicSystemCode;
-import cn.webfuse.core.exception.AbstractBizException;
+import cn.webfuse.framework.exception.BaseWebfuseException;
 import cn.webfuse.framework.exception.handle.impl.Default404ErrorController;
 import cn.webfuse.framework.exception.handle.impl.DefaultRestfulErrorConverter;
 import cn.webfuse.framework.exception.handle.impl.DefaultRestfulErrorResolver;
@@ -41,7 +41,6 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
 import javax.servlet.Servlet;
 import java.util.ArrayList;
@@ -203,7 +202,7 @@ public class ErrorMvcAutoConfig {
         applyDef(list, ConversionNotSupportedException.class, HttpStatus.INTERNAL_SERVER_ERROR, BasicSystemCode.SYSTEM_ERROR.getCode());
         applyDef(list, HttpMessageNotWritableException.class, HttpStatus.INTERNAL_SERVER_ERROR, BasicSystemCode.SYSTEM_ERROR.getCode());
         //系统的基类
-        applyDef(list, AbstractBizException.class, HttpStatus.INTERNAL_SERVER_ERROR, BasicSystemCode.SYSTEM_ERROR.getCode());
+        applyDef(list, BaseWebfuseException.class, HttpStatus.INTERNAL_SERVER_ERROR, BasicSystemCode.SYSTEM_ERROR.getCode());
 
         //503
         applyDef(list, AsyncRequestTimeoutException.class, HttpStatus.SERVICE_UNAVAILABLE, BasicSystemCode.SERVICE_UNAVAILABLE.getCode());
