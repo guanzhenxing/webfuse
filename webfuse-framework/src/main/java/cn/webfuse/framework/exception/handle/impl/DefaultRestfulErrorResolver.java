@@ -1,5 +1,6 @@
 package cn.webfuse.framework.exception.handle.impl;
 
+import cn.webfuse.framework.exception.BaseErrorCode;
 import cn.webfuse.framework.exception.BaseWebfuseException;
 import cn.webfuse.framework.exception.handle.RestfulError;
 import cn.webfuse.framework.exception.handle.RestfulErrorResolver;
@@ -7,6 +8,7 @@ import cn.webfuse.framework.kit.LocalHostInfoKits;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.MessageSource;
@@ -43,23 +45,12 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
     private LocaleResolver localeResolver;
 
     private String defaultDocument;
+    private boolean showThrowable;
     private boolean showDeveloperMessage;
+    private boolean showHostId;
 
     public DefaultRestfulErrorResolver(List<ExceptionDefinition> exceptionDefinitions) {
         this.exceptionMappings = definitionRestErrors(exceptionDefinitions);
-    }
-
-    public void setDefaultDocument(String defaultDocument) {
-        this.defaultDocument = defaultDocument;
-    }
-
-    public void setShowDeveloperMessage(boolean showDeveloperMessage) {
-        this.showDeveloperMessage = showDeveloperMessage;
-    }
-
-    @Override
-    public void setMessageSource(MessageSource messageSource) {
-        this.messageSource = messageSource;
     }
 
 
@@ -70,21 +61,22 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
          * 获得运行时期的异常
          */
         RestfulError template = buildRuntimeError(ex);
+        template.getDetail().setHostId(getHostId());
+        template.getDetail().setRequestId(getRequestId(request));
+        template.getDetail().setPath(request.getRequestURI());
 
-        RestfulError.Builder builder = new RestfulError.Builder();
-        builder.setThrowable(ex);
-        builder.setStatus(getStatus(template));
-        builder.setCode(getCode(template));
-        builder.setMessage(getMessage(template, request));
-        builder.setRequestId(getRequestId(request));
-        builder.setHostId(getHostId());
-        builder.setDocument(getDocument(template));
-        if (showDeveloperMessage) {
-            builder.setDeveloperMessage(getDeveloperMessage(template, request));
+        if (!showThrowable) {
+            template.getDetail().setThrowable(null);
+        }
+        if (!showDeveloperMessage) {
+            template.getDetail().setDeveloperMessage(null);
         }
 
+        if (!showHostId) {
+            template.getDetail().setHostId(null);
+        }
 
-        return builder.build();
+        return template;
     }
 
 
@@ -122,9 +114,9 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
     private RestfulError definitionRestError(ExceptionDefinition definition) {
 
         String code = definition.getCode();
-        //如果没有定义code，那么默认就是INTERNAL_SERVER_ERROR
+        //如果没有定义code，那么默认就是SYSTEM_ERROR
         if (StringUtils.isEmpty(code)) {
-            code = "INTERNAL_SERVER_ERROR";
+            code = "SYSTEM_ERROR";
         }
 
         String message = definition.getMessage();
@@ -153,14 +145,13 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
             document = this.defaultDocument;
         }
 
-        RestfulError.Builder builder = new RestfulError.Builder();
-        builder.setCode(code);
-        builder.setMessage(message);
-        builder.setStatus(httpStatus);
-        builder.setDeveloperMessage(developerMessage);
-        builder.setDocument(document);
+        RestfulError.ErrorDetail errorDetail = new RestfulError.ErrorDetail();
+        errorDetail.setDeveloperMessage(developerMessage);
+        errorDetail.setDocument(document);
 
-        return builder.build();
+        RestfulError restfulError = new RestfulError(httpStatus, code, message, errorDetail);
+
+        return restfulError;
     }
 
     /**
@@ -173,7 +164,10 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
 
         Map<String, RestfulError> mappings = this.exceptionMappings;
         if (CollectionUtils.isEmpty(mappings)) {
-            return null;
+            int s = BaseErrorCode.SYSTEM_ERROR.getStatus();
+            String c = BaseErrorCode.SYSTEM_ERROR.getCode();
+            String m = BaseErrorCode.SYSTEM_ERROR.getMessage();
+            return new RestfulError(HttpStatus.valueOf(s), c, m, new RestfulError.ErrorDetail());
         }
         if (ex == null) {
             //如果为空，就直接用RuntimeException
@@ -200,26 +194,25 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
         //获得异常的HTTP代码
         HttpStatus httpStatus = restfulError.getStatus();
         String message = restfulError.getMessage();
-        String developerMessage = restfulError.getDeveloperMessage();
-        String document = restfulError.getDocument();
+        String developerMessage = restfulError.getDetail().getDeveloperMessage();
+        String document = restfulError.getDetail().getDocument();
+        Map<String, Object> data = new HashMap<>();
 
         //如果异常继承于BaseWebfuseException时的处理
         if (ex instanceof BaseWebfuseException) {
-            code = ((BaseWebfuseException) ex).getCode();
-            if (((BaseWebfuseException) ex).getStatus() != 0) {
-                httpStatus = HttpStatus.valueOf(((BaseWebfuseException) ex).getStatus());
+            code = ((BaseWebfuseException) ex).getErrorCode().getCode();
+            if (((BaseWebfuseException) ex).getErrorCode().getStatus() != 0) {
+                httpStatus = HttpStatus.valueOf(((BaseWebfuseException) ex).getErrorCode().getStatus());
             } else {
                 httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             }
-            message = ex.getMessage();
-            developerMessage = ((BaseWebfuseException) ex).getDeveloperMessage();
-            if (StringUtils.isEmpty(developerMessage)) {
-                developerMessage = StringUtils.join(ex.getStackTrace(), "\n");
-            }
+            message = ((BaseWebfuseException) ex).getErrorCode().getMessage();
+            developerMessage = StringUtils.join(ex.getStackTrace(), "\n");
+            data = ((BaseWebfuseException) ex).getData();
         }
 
         if (StringUtils.isEmpty(message)) {
-            message = ex.getMessage();
+            message = BaseErrorCode.SYSTEM_ERROR.getMessage();
         }
         if (StringUtils.isEmpty(developerMessage)) {
             developerMessage = ex.toString();
@@ -228,17 +221,17 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
             document = this.defaultDocument;
         }
 
-        RestfulError.Builder builder = new RestfulError.Builder();
 
-        builder.setStatus(httpStatus);
-        builder.setCode(code);
-        builder.setMessage(message);
-        builder.setDeveloperMessage(developerMessage);
-        builder.setThrowable(ex);
-        builder.setDocument(document);
+        RestfulError.ErrorDetail errorDetail = new RestfulError.ErrorDetail();
+        errorDetail.setDeveloperMessage(developerMessage);
+        errorDetail.setDocument(document);
+        errorDetail.setData(MapUtils.isNotEmpty(data) ? data : null);
+        errorDetail.setThrowable(ex);
 
-        return builder.build();
+        return new RestfulError(httpStatus, code, message, errorDetail);
     }
+
+    //======================//
 
     private HttpStatus getStatus(RestfulError template) {
         return template.getStatus();
@@ -249,7 +242,7 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
     }
 
     private String getDeveloperMessage(RestfulError template, HttpServletRequest request) {
-        return getMessage(template.getDeveloperMessage(), request);
+        return getMessage(template.getDetail().getDeveloperMessage(), request);
     }
 
     private String getMessage(RestfulError template, HttpServletRequest request) {
@@ -275,9 +268,8 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
     }
 
     private String getDocument(RestfulError template) {
-        return template.getDocument();
+        return template.getDetail().getDocument();
     }
-
 
     private String getHostId() {
         return LocalHostInfoKits.getLocalHost();
@@ -287,8 +279,31 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
         return request.getHeader("X-Request-Id");
     }
 
+    //======================//
+
     public void setLocaleResolver(LocaleResolver localeResolver) {
         this.localeResolver = localeResolver;
+    }
+
+    public void setDefaultDocument(String defaultDocument) {
+        this.defaultDocument = defaultDocument;
+    }
+
+    public void setShowDeveloperMessage(boolean showDeveloperMessage) {
+        this.showDeveloperMessage = showDeveloperMessage;
+    }
+
+    public void setShowThrowable(boolean showThrowable) {
+        this.showThrowable = showThrowable;
+    }
+
+    @Override
+    public void setMessageSource(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
+
+    public void setShowHostId(boolean showHostId) {
+        this.showHostId = showHostId;
     }
 
     @Data

@@ -1,7 +1,8 @@
 package cn.webfuse.framework.config;
 
+import cn.webfuse.core.exception.ErrorCode;
 import cn.webfuse.framework.config.properties.WebMvcProperties;
-import cn.webfuse.framework.constant.BasicSystemCode;
+import cn.webfuse.framework.exception.BaseErrorCode;
 import cn.webfuse.framework.exception.BaseWebfuseException;
 import cn.webfuse.framework.exception.handle.impl.Default404ErrorController;
 import cn.webfuse.framework.exception.handle.impl.DefaultRestfulErrorConverter;
@@ -72,10 +73,10 @@ public class ErrorMvcAutoConfig {
      */
     private final ServerProperties serverProperties;
 
-    @Autowired
+    @Autowired(required = false)
     private LocaleResolver localeResolver;
 
-    @Autowired
+    @Autowired(required = false)
     private MessageSource messageSource;
 
     /**
@@ -116,6 +117,9 @@ public class ErrorMvcAutoConfig {
         defaultRestfulErrorResolver.setMessageSource(messageSource);
         defaultRestfulErrorResolver.setDefaultDocument(webMvcProperties.getRestfulExceptionHandle().getDefaultDocument());
         defaultRestfulErrorResolver.setShowDeveloperMessage(webMvcProperties.getRestfulExceptionHandle().isShowDeveloperMessage());
+        defaultRestfulErrorResolver.setShowThrowable(webMvcProperties.getRestfulExceptionHandle().isShowThrowable());
+        defaultRestfulErrorResolver.setShowHostId(webMvcProperties.getRestfulExceptionHandle().isShowHostId());
+
 
         DefaultRestfulErrorConverter defaultRestfulErrorConverter = new DefaultRestfulErrorConverter();
 
@@ -176,48 +180,48 @@ public class ErrorMvcAutoConfig {
 
         List<DefaultRestfulErrorResolver.ExceptionDefinition> list = new ArrayList<>();
         // 400
-        applyDef(list, HttpMessageNotReadableException.class, HttpStatus.BAD_REQUEST, BasicSystemCode.PARAMETER_ERROR.getCode());
-        applyDef(list, MissingServletRequestParameterException.class, HttpStatus.BAD_REQUEST, BasicSystemCode.PARAMETER_ERROR.getCode());
-        applyDef(list, TypeMismatchException.class, HttpStatus.BAD_REQUEST, BasicSystemCode.PARAMETER_ERROR.getCode());
-        applyDef(list, "javax.validation.ValidationException", HttpStatus.BAD_REQUEST, BasicSystemCode.PARAMETER_ERROR.getCode());
-        applyDef(list, BindException.class, HttpStatus.BAD_REQUEST, BasicSystemCode.PARAMETER_ERROR.getCode());
-        applyDef(list, ServletRequestBindingException.class, HttpStatus.BAD_REQUEST, BasicSystemCode.PARAMETER_ERROR.getCode());
-        applyDef(list, MethodArgumentNotValidException.class, HttpStatus.BAD_REQUEST, BasicSystemCode.PARAMETER_ERROR.getCode());
-        applyDef(list, MissingServletRequestPartException.class, HttpStatus.BAD_REQUEST, BasicSystemCode.PARAMETER_ERROR.getCode());
+        applyDef(list, HttpMessageNotReadableException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.PARAMETER_ERROR);
+        applyDef(list, MissingServletRequestParameterException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.PARAMETER_ERROR);
+        applyDef(list, TypeMismatchException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.PARAMETER_ERROR);
+        applyDef(list, "javax.validation.ValidationException", HttpStatus.BAD_REQUEST, BaseErrorCode.PARAMETER_ERROR);
+        applyDef(list, BindException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.PARAMETER_ERROR);
+        applyDef(list, ServletRequestBindingException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.PARAMETER_ERROR);
+        applyDef(list, MethodArgumentNotValidException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.PARAMETER_ERROR);
+        applyDef(list, MissingServletRequestPartException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.PARAMETER_ERROR);
         // 404
-        applyDef(list, NoHandlerFoundException.class, HttpStatus.NOT_FOUND, BasicSystemCode.REQUEST_URI_NOT_FOUND.getCode());
+        applyDef(list, NoHandlerFoundException.class, HttpStatus.NOT_FOUND, BaseErrorCode.REQUEST_URI_NOT_FOUND);
         // 405
-        applyDef(list, HttpRequestMethodNotSupportedException.class, HttpStatus.METHOD_NOT_ALLOWED, BasicSystemCode.REQUEST_METHOD_NOT_ALLOWED.getCode());
+        applyDef(list, HttpRequestMethodNotSupportedException.class, HttpStatus.METHOD_NOT_ALLOWED, BaseErrorCode.REQUEST_METHOD_NOT_ALLOWED);
         // 406
-        applyDef(list, HttpMediaTypeNotAcceptableException.class, HttpStatus.NOT_ACCEPTABLE, BasicSystemCode.RESOURCE_NOT_ACCEPTABLE.getCode());
+        applyDef(list, HttpMediaTypeNotAcceptableException.class, HttpStatus.NOT_ACCEPTABLE, BaseErrorCode.RESOURCE_NOT_ACCEPTABLE);
         // 409
         //can't use the class directly here as it may not be an available dependency:
-        applyDef(list, "org.springframework.dao.DataIntegrityViolationException", HttpStatus.CONFLICT, BasicSystemCode.RESOURCE_CONFLICT.getCode());
+        applyDef(list, "org.springframework.dao.DataIntegrityViolationException", HttpStatus.CONFLICT, BaseErrorCode.RESOURCE_CONFLICT);
         // 415
-        applyDef(list, HttpMediaTypeNotSupportedException.class, HttpStatus.UNSUPPORTED_MEDIA_TYPE, BasicSystemCode.UNSUPPORTED_MEDIA_TYPE.getCode());
+        applyDef(list, HttpMediaTypeNotSupportedException.class, HttpStatus.UNSUPPORTED_MEDIA_TYPE, BaseErrorCode.UNSUPPORTED_MEDIA_TYPE);
         // 500
-        applyDef(list, Throwable.class, HttpStatus.INTERNAL_SERVER_ERROR, BasicSystemCode.SYSTEM_ERROR.getCode());
-        applyDef(list, RuntimeException.class, HttpStatus.INTERNAL_SERVER_ERROR, BasicSystemCode.SYSTEM_ERROR.getCode());
-        applyDef(list, MissingPathVariableException.class, HttpStatus.INTERNAL_SERVER_ERROR, BasicSystemCode.SYSTEM_ERROR.getCode());
-        applyDef(list, ConversionNotSupportedException.class, HttpStatus.INTERNAL_SERVER_ERROR, BasicSystemCode.SYSTEM_ERROR.getCode());
-        applyDef(list, HttpMessageNotWritableException.class, HttpStatus.INTERNAL_SERVER_ERROR, BasicSystemCode.SYSTEM_ERROR.getCode());
+        applyDef(list, Throwable.class, HttpStatus.INTERNAL_SERVER_ERROR, BaseErrorCode.SYSTEM_ERROR);
+        applyDef(list, RuntimeException.class, HttpStatus.INTERNAL_SERVER_ERROR, BaseErrorCode.SYSTEM_ERROR);
+        applyDef(list, MissingPathVariableException.class, HttpStatus.INTERNAL_SERVER_ERROR, BaseErrorCode.SYSTEM_ERROR);
+        applyDef(list, ConversionNotSupportedException.class, HttpStatus.INTERNAL_SERVER_ERROR, BaseErrorCode.SYSTEM_ERROR);
+        applyDef(list, HttpMessageNotWritableException.class, HttpStatus.INTERNAL_SERVER_ERROR, BaseErrorCode.SYSTEM_ERROR);
         //系统的基类
-        applyDef(list, BaseWebfuseException.class, HttpStatus.INTERNAL_SERVER_ERROR, BasicSystemCode.SYSTEM_ERROR.getCode());
+        applyDef(list, BaseWebfuseException.class, HttpStatus.INTERNAL_SERVER_ERROR, BaseErrorCode.SYSTEM_ERROR);
 
         //503
-        applyDef(list, AsyncRequestTimeoutException.class, HttpStatus.SERVICE_UNAVAILABLE, BasicSystemCode.SERVICE_UNAVAILABLE.getCode());
+        applyDef(list, AsyncRequestTimeoutException.class, HttpStatus.SERVICE_UNAVAILABLE, BaseErrorCode.SERVICE_UNAVAILABLE);
 
         return list;
     }
 
-    private void applyDef(List<DefaultRestfulErrorResolver.ExceptionDefinition> list, Class clazz, HttpStatus status, String code) {
-        applyDef(list, clazz.getName(), status, code);
+    private void applyDef(List<DefaultRestfulErrorResolver.ExceptionDefinition> list, Class clazz, HttpStatus status, ErrorCode errorCode) {
+        applyDef(list, clazz.getName(), status, errorCode);
     }
 
-    private void applyDef(List<DefaultRestfulErrorResolver.ExceptionDefinition> list, String name, HttpStatus status, String code) {
+    private void applyDef(List<DefaultRestfulErrorResolver.ExceptionDefinition> list, String name, HttpStatus status, ErrorCode errorCode) {
 
         DefaultRestfulErrorResolver.ExceptionDefinition exceptionDefinition =
-                new DefaultRestfulErrorResolver.ExceptionDefinition(name, status.value(), code, "", "", "");
+                new DefaultRestfulErrorResolver.ExceptionDefinition(name, status.value(), errorCode.getCode(), errorCode.getMessage(), "", "");
         list.add(exceptionDefinition);
 
     }

@@ -1,6 +1,6 @@
 package cn.webfuse.framework.exception.handle.impl;
 
-import cn.webfuse.framework.constant.BasicSystemCode;
+import cn.webfuse.framework.exception.BaseErrorCode;
 import cn.webfuse.framework.kit.LocalHostInfoKits;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
@@ -87,12 +87,12 @@ public class Default404ErrorController extends AbstractErrorController {
     public ResponseEntity<DefaultRestfulErrorVO> error(HttpServletRequest request) {
 
         DefaultRestfulErrorVO vo = new DefaultRestfulErrorVO();
-        vo.setCode(BasicSystemCode.REQUEST_URI_NOT_FOUND.getCode());
-        vo.setServerTime(new Date());
-        vo.setMessage("Not Found");
-        vo.setHostId(LocalHostInfoKits.getLocalHost());
-        vo.setRequestId(request.getHeader("X-Request-Id"));
-        vo.setDocument(this.defaultDocument);
+        vo.setCode(BaseErrorCode.REQUEST_URI_NOT_FOUND.getCode());
+        vo.setMessage(BaseErrorCode.REQUEST_URI_NOT_FOUND.getMessage());
+
+        vo.getDetail().put("hostId", LocalHostInfoKits.getLocalHost());
+        vo.getDetail().put("document", this.defaultDocument);
+        vo.getDetail().put("requestId", request.getHeader("X-Request-Id"));
 
         return new ResponseEntity<>(vo, HttpStatus.NOT_FOUND);
     }

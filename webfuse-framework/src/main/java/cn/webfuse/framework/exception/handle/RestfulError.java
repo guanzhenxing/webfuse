@@ -1,10 +1,14 @@
 package cn.webfuse.framework.exception.handle;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Restful错误
@@ -15,76 +19,60 @@ import java.util.Date;
 @AllArgsConstructor
 public class RestfulError {
 
-    private final HttpStatus status;
-    private final String code;
-    private final String message;
-    private final String developerMessage;
-    private final Throwable throwable;
-    private final Date serverTime = new Date();
-    private String requestId;
-    private String hostId;
-    private String document;
+    /**
+     * HttpStatus状态码
+     */
+    private HttpStatus status;
+    /**
+     * 异常code码
+     */
+    private String code;
+    /**
+     * 异常消息
+     */
+    private String message;
+    /**
+     * 异常详情
+     */
+    private ErrorDetail detail;
 
-
-    public static class Builder {
-        private HttpStatus status;
-        private String code;
-        private String message;
-        private String developerMessage;
-        private Throwable throwable;
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ErrorDetail {
+        /**
+         * requestId
+         */
         private String requestId;
+        /**
+         * 本地的ID，一般为IP地址
+         */
         private String hostId;
+        /**
+         * 服务器时间
+         */
+        private Date serverTime = new Date();
+        /**
+         * 开发者消息
+         */
+        private String developerMessage;
+        /**
+         * 文档
+         */
         private String document;
-
-        public Builder() {
-        }
-
-        public Builder setStatus(HttpStatus status) {
-            this.status = status;
-            return this;
-        }
-
-        public Builder setCode(String code) {
-            this.code = code;
-            return this;
-        }
-
-        public Builder setMessage(String message) {
-            this.message = message;
-            return this;
-        }
-
-        public Builder setDeveloperMessage(String developerMessage) {
-            this.developerMessage = developerMessage;
-            return this;
-        }
-
-        public Builder setThrowable(Throwable throwable) {
-            this.throwable = throwable;
-            return this;
-        }
-
-        public void setRequestId(String requestId) {
-            this.requestId = requestId;
-        }
-
-        public void setHostId(String hostId) {
-            this.hostId = hostId;
-        }
-
-        public void setDocument(String document) {
-            this.document = document;
-        }
-
-        public RestfulError build() {
-            if (this.status == null) {
-                this.status = HttpStatus.INTERNAL_SERVER_ERROR;
-            }
-            return new RestfulError(
-                    this.status, this.code, this.message, this.developerMessage, this.throwable,
-                    this.requestId, this.hostId, this.document
-            );
-        }
-
+        /**
+         * 额外数据
+         */
+        private Map<String, Object> data;
+        /**
+         * 异常
+         */
+        private Throwable throwable;
+        /**
+         * 路径
+         */
+        private String path;
     }
+
+
 }

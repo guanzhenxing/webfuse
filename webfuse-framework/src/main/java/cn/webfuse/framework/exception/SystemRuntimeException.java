@@ -1,5 +1,10 @@
 package cn.webfuse.framework.exception;
 
+import cn.webfuse.core.exception.ErrorCode;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 系统运行时异常
  *
@@ -7,23 +12,25 @@ package cn.webfuse.framework.exception;
  */
 public class SystemRuntimeException extends BaseWebfuseException {
 
-    public SystemRuntimeException(String code, String message, Throwable throwable, String developerMessage, int status) {
-        super(code, message, throwable, developerMessage, status);
+    public SystemRuntimeException(ErrorCode errorCode, Map<String, Object> data) {
+        super(errorCode, data);
     }
 
-    public SystemRuntimeException(String code, String message, Throwable throwable, int status) {
-        super(code, message, throwable, status);
+    public SystemRuntimeException(ErrorCode errorCode, Map<String, Object> data, Throwable cause) {
+        super(errorCode, data, cause);
     }
 
-    public SystemRuntimeException(String code, String message, int status) {
-        super(code, message, status);
+    public SystemRuntimeException(Throwable cause) {
+        super(cause);
     }
 
-    public SystemRuntimeException(String message, int status) {
-        super(message, status);
+    public SystemRuntimeException() {
+        this(BaseErrorCode.SYSTEM_ERROR, new HashMap<>());
     }
 
-    public SystemRuntimeException(int status) {
-        super(status);
+    public SystemRuntimeException(Map<String, Object> data) {
+        this(BaseErrorCode.SYSTEM_ERROR, data);
     }
+
+
 }

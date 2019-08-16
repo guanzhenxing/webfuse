@@ -49,14 +49,13 @@ public class RestResponseWrapper<T> extends ResponseEntity<T> {
 
     public static RestResponseWrapper<RestfulError> restfulError(HttpStatus status, String code, String message) {
 
-        RestfulError.Builder builder = new RestfulError.Builder();
-        builder.setStatus(status);
-        builder.setCode(code);
-        builder.setMessage(message);
-        builder.setRequestId(HttpServletKits.getRequest().getHeader("X-Request-Id"));
-        builder.setHostId(LocalHostInfoKits.getLocalHost());
+        RestfulError.ErrorDetail errorDetail = new RestfulError.ErrorDetail();
+        errorDetail.setRequestId(HttpServletKits.getRequest().getHeader("X-Request-Id"));
+        errorDetail.setHostId(LocalHostInfoKits.getLocalHost());
 
-        return new RestResponseWrapper<>(builder.build(), status);
+        RestfulError restfulError = new RestfulError(status, code, message, errorDetail);
+
+        return new RestResponseWrapper<>(restfulError, status);
     }
 
 

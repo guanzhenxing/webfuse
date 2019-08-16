@@ -3,9 +3,6 @@ package cn.webfuse.core.kit;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
-import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
 import javax.annotation.Nullable;
@@ -24,20 +21,6 @@ import java.util.function.Supplier;
 public class MapKits {
 
     public static final float DEFAULT_LOAD_FACTOR = 0.75f;
-
-    /**
-     * 判断是否为空
-     */
-    public static boolean isEmpty(final Map<?, ?> map) {
-        return (map == null) || map.isEmpty();
-    }
-
-    /**
-     * 判断是否为空
-     */
-    public static boolean isNotEmpty(final Map<?, ?> map) {
-        return (map != null) && !map.isEmpty();
-    }
 
 
     public static <K, V> Map<K, V> merge(Map<K, V> map, Map<K, V> maps) {

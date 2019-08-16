@@ -1,14 +1,12 @@
 package cn.webfuse.framework.config.properties;
 
-import cn.webfuse.framework.constant.BasicSystemCode;
+import cn.webfuse.framework.exception.BaseErrorCode;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * webfuse框架mvc的基本配置
@@ -65,9 +63,18 @@ public class WebMvcProperties {
         private String defaultDocument;
 
         /**
-         * 显示开发者错误信息
+         * 是否显示开发者错误信息
          */
         private boolean showDeveloperMessage = false;
+        /**
+         * 是否显示异常
+         */
+        private boolean showThrowable = false;
+
+        /**
+         * 是否显示hostId
+         */
+        private boolean showHostId = false;
 
         /**
          * 异常处理匹配
@@ -78,8 +85,8 @@ public class WebMvcProperties {
         @NoArgsConstructor
         public static class Mapping {
             private String clazz;
-            private int status = BasicSystemCode.SYSTEM_ERROR.getStatus();
-            private String code = BasicSystemCode.SYSTEM_ERROR.getCode();
+            private int status = BaseErrorCode.SYSTEM_ERROR.getStatus();
+            private String code = BaseErrorCode.SYSTEM_ERROR.getCode();
             private String message = "";
             private String developerMessage = "";
             private String document = "";
