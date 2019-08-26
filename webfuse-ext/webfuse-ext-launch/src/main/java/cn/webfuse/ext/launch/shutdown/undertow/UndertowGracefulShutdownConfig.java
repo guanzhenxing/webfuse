@@ -1,14 +1,17 @@
 package cn.webfuse.ext.launch.shutdown.undertow;
 
+import io.undertow.Undertow;
 import io.undertow.UndertowOptions;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Servlet;
+
 @Configuration
-@ConditionalOnMissingClass(value = {"org.springframework.boot.web.embedded.undertow.UndertowWebServer"})
+@ConditionalOnClass({Servlet.class, Undertow.class})
 public class UndertowGracefulShutdownConfig {
 
     @Bean

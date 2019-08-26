@@ -11,13 +11,14 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 优雅地关闭Tomcat (see : https://github.com/spring-projects/spring-boot/issues/4657)
+ * 优雅地关闭Tomcat (see : https://github.com/spring-projects/spring-boot/issues/4657#issuecomment-161354811)
  */
 @Slf4j
 public class TomcatGracefulShutdown implements TomcatConnectorCustomizer, ApplicationListener<ContextClosedEvent> {
 
     private volatile Connector connector;
-    private static final int WAITE_TIME = 30;
+
+    private static final int TIMEOUT = 30;
 
     @Override
     public void customize(Connector connector) {
@@ -30,11 +31,17 @@ public class TomcatGracefulShutdown implements TomcatConnectorCustomizer, Applic
         Executor executor = this.connector.getProtocolHandler().getExecutor();
         if (executor instanceof ThreadPoolExecutor) {
             try {
-                log.warn("Application will shutdown");
                 ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) executor;
                 threadPoolExecutor.shutdown();
-                if (!threadPoolExecutor.awaitTermination(WAITE_TIME, TimeUnit.SECONDS)) {
-                    log.warn("Tomcat thread pool did not shut down gracefully within " + WAITE_TIME + " seconds. Proceeding with forceful shutdown");
+                if (!threadPoolExecutor.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
+                    log.warn("Tomcat thread pool did not shut down gracefully within "
+                            + TIMEOUT + " seconds. Proceeding with forceful shutdown");
+
+                    threadPoolExecutor.shutdownNow();
+
+                    if (!threadPoolExecutor.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
+                        log.error("Tomcat thread pool did not terminate");
+                    }
                 }
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
