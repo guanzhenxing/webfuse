@@ -5,18 +5,23 @@
     <parent>
         <artifactId>webfuse-starters</artifactId>
         <groupId>cn.webfuse</groupId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>webfuse-starter-framework</artifactId>
-
 
     <dependencies>
 
         <dependency>
             <groupId>cn.webfuse</groupId>
             <artifactId>webfuse-framework</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.webfuse</groupId>
+            <artifactId>webfuse-ext-launch</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -41,6 +46,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
 
         <!--for swagger-->
         <dependency>

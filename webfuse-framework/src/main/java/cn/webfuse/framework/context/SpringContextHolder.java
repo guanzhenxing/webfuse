@@ -1,5 +1,6 @@
 package cn.webfuse.framework.context;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.ApplicationContext;
@@ -100,4 +101,18 @@ public class SpringContextHolder implements ApplicationContextAware {
     public static ApplicationContext getApplicationContext() {
         return applicationContext;
     }
+
+    /**
+     * 获取profile值
+     *
+     * @return
+     */
+    public static String getActiveProfile() {
+        String[] profiles = applicationContext.getEnvironment().getActiveProfiles();
+        if (ArrayUtils.isNotEmpty(profiles)) {
+            return profiles[0];
+        }
+        return null;
+    }
+
 }
