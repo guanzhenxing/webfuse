@@ -16,13 +16,13 @@ import java.util.concurrent.TimeUnit;
  * <p>
  * 因为ThreadInfo的toString()最多只会打印8层的StackTrace，所以加上了最大打印层数的选项.(默认为8)
  */
-public class ThreadDumpper {
+public class ThreadDumper {
 
     private static final int DEFAULT_MAX_STACK_LEVEL = 8;
 
     private static final int DEFAULT_MIN_INTERVAL = 1000 * 60 * 10; // 10分钟
 
-    private static Logger logger = LoggerFactory.getLogger(ThreadDumpper.class);
+    private static Logger logger = LoggerFactory.getLogger(ThreadDumper.class);
 
     private boolean enable = true; // 快速关闭该功能
 
@@ -30,11 +30,11 @@ public class ThreadDumpper {
 
     private TimeIntervalLimiter timeIntervalLimiter;
 
-    public ThreadDumpper() {
+    public ThreadDumper() {
         this(DEFAULT_MIN_INTERVAL, DEFAULT_MAX_STACK_LEVEL);
     }
 
-    public ThreadDumpper(long leastIntervalMills, int maxStackLevel) {
+    public ThreadDumper(long leastIntervalMills, int maxStackLevel) {
         this.maxStackLevel = maxStackLevel;
 
         timeIntervalLimiter = new TimeIntervalLimiter(leastIntervalMills, TimeUnit.MILLISECONDS);
