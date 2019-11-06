@@ -39,16 +39,14 @@ public class WebBindingInitializerConfig {
 
         //装配自定义属性编辑器
         initializer.setPropertyEditorRegistrar(propertyEditorRegistry -> {
-            //PropertyEditors并不是线程安全的，对于每一个请求，我们都需要new一个PropertyEditor对象
-
             stringEscapeHtml4(propertyEditorRegistry);
-
         });
 
         return initializer;
     }
 
     private void stringEscapeHtml4(PropertyEditorRegistry propertyEditorRegistry) {
+        //PropertyEditors并不是线程安全的，对于每一个请求，我们都需要new一个PropertyEditor对象
         propertyEditorRegistry.registerCustomEditor(String.class, new PropertyEditorSupport() {
             @Override
             public void setAsText(String text) {

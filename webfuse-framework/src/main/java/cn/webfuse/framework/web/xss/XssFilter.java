@@ -3,7 +3,6 @@ package cn.webfuse.framework.web.xss;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
  *
  * @author Jesen
  */
-@WebFilter(filterName = "xssFilter", value = "/*", asyncSupported = true)
 @Slf4j
 public class XssFilter implements Filter {
 

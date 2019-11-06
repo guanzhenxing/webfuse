@@ -14,7 +14,7 @@
 
     <modules>
         <module>webfuse-starter</module>
-        <module>webfuse-starter-framework</module>
+        <module>webfuse-starter-mvc</module>
     </modules>
 
 
