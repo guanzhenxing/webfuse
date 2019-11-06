@@ -1,7 +1,24 @@
+/*
+ * Copyright [2018] [https://github.com/vipshop/vjtools]
+ *
+ * Further modifications copyright (c) 2019 by webfuse.cn
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package cn.webfuse.core.kit;
 
 import cn.webfuse.core.exception.UncheckedException;
-import cn.webfuse.core.type.StringBuilderWriter;
+import cn.webfuse.core.kit.text.StringBuilderWriter;
 import com.google.common.base.Throwables;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -21,13 +38,12 @@ import java.lang.reflect.UndeclaredThrowableException;
  * <p>
  * 4. StackTrace性能优化相关，尽量使用静态异常避免异常生成时获取StackTrace(Netty)
  * <p>
- * copy from vipshop VJTools(com.vip.vjtools.vjkit.base.ExceptionUtil) and made some changes.
+ * copy from vjtools
  */
 public class ExceptionKits {
-
     private static final StackTraceElement[] EMPTY_STACK_TRACE = new StackTraceElement[0];
 
-    ///// Checked/Uncheked及Wrap(如ExecutionException)的转换/////
+    ///// Checked/Unchecked及Wrap(如ExecutionException)的转换/////
 
     /**
      * 将CheckedException转换为RuntimeException重新抛出, 可以减少函数签名中的CheckExcetpion定义.
@@ -141,7 +157,7 @@ public class ExceptionKits {
     /**
      * 获取某种类型的cause，如果没有则返回空
      * <p>
-     * copy from Jodd ExceptionKits
+     * copy from Jodd ExceptionUtil
      */
     public static <T extends Throwable> T findCause(Throwable throwable, Class<T> cause) {
         while (throwable != null) {
@@ -181,7 +197,7 @@ public class ExceptionKits {
      * 如果异常可能在多个地方抛出，使用本函数设置抛出的类名和方法名.
      *
      * <pre>
-     * private static RuntimeException TIMEOUT_EXCEPTION = ExceptionKits.setStackTrace(new RuntimeException("Timeout"),
+     * private static RuntimeException TIMEOUT_EXCEPTION = ExceptionUtil.setStackTrace(new RuntimeException("Timeout"),
      * 		MyClass.class, "mymethod");
      * </pre>
      */
@@ -206,6 +222,4 @@ public class ExceptionKits {
         }
         return throwable;
     }
-
-
 }

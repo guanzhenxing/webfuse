@@ -3,7 +3,7 @@ package cn.webfuse.core.kit.concurrent;
 import java.util.concurrent.TimeUnit;
 
 /**
- * copy from vipshop VJTools
+ * copy from vjtools
  * <p>
  * 线程相关工具类.
  * <p>
@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
  * 2. 正确的InterruptedException处理方法
  */
 public class ThreadKits {
-
     /**
      * sleep等待, 单位为毫秒, 已捕捉并处理InterruptedException.
      */
@@ -41,5 +40,4 @@ public class ThreadKits {
     public static void handleInterruptedException() {
         Thread.currentThread().interrupt();
     }
-
 }

@@ -1,6 +1,5 @@
 package cn.webfuse.framework.exception.handle.impl;
 
-import cn.webfuse.core.kit.ObjectKits;
 import cn.webfuse.core.kit.mapper.BeanMapper;
 import cn.webfuse.framework.exception.handle.RestfulError;
 import cn.webfuse.framework.exception.handle.RestfulErrorConverter;

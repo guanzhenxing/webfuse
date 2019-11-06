@@ -1,17 +1,9 @@
 package cn.webfuse.framework.web.xss;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 
-import javax.servlet.ReadListener;
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -87,44 +79,6 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
             return null;
         }
         return cleanXSS(value);
-    }
-
-    @Override
-    public ServletInputStream getInputStream() throws IOException {
-        //非json类型，直接返回
-        if (!MediaType.APPLICATION_JSON_VALUE.equalsIgnoreCase(super.getHeader(HttpHeaders.CONTENT_TYPE))) {
-            return super.getInputStream();
-        }
-
-        //为空，直接返回
-        String json = IOUtils.toString(super.getInputStream(), "utf-8");
-        if (StringUtils.isBlank(json)) {
-            return super.getInputStream();
-        }
-
-        //xss过滤
-        json = cleanXSS(json);
-        final ByteArrayInputStream bis = new ByteArrayInputStream(json.getBytes("utf-8"));
-        return new ServletInputStream() {
-            @Override
-            public boolean isFinished() {
-                return true;
-            }
-
-            @Override
-            public boolean isReady() {
-                return true;
-            }
-
-            @Override
-            public void setReadListener(ReadListener readListener) {
-            }
-
-            @Override
-            public int read() {
-                return bis.read();
-            }
-        };
     }
 
     private String cleanXSS(String value) {

@@ -1,7 +1,7 @@
 package cn.webfuse.ext.kit;
 
 import cn.webfuse.core.constant.StringPool;
-import cn.webfuse.core.kit.NumberKits;
+import cn.webfuse.core.kit.number.NumberKits;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.management.ManagementFactory;

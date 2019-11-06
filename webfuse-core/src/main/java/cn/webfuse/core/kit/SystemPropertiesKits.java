@@ -1,14 +1,13 @@
 package cn.webfuse.core.kit;
 
-
-import org.apache.commons.lang3.StringUtils;
+import cn.webfuse.core.kit.number.NumberKits;
 
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-
 /**
+ * copy from vjtools
  * 关于SystemProperties的工具类
  * <p>
  * 1. 统一风格的读取系统变量到各种数据类型，其中Boolean.readBoolean的风格不统一，Double则不支持，都进行了扩展.
@@ -19,36 +18,24 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * 在其所关心的属性变化时进行通知.
  */
 public class SystemPropertiesKits {
-
     /**
      * 读取Boolean类型的系统变量，为空时返回null，代表未设置，而不是Boolean.getBoolean()的false.
-     *
-     * @param name
-     * @return
      */
     public static Boolean getBoolean(String name) {
         String stringResult = System.getProperty(name);
-        return toBooleanObject(stringResult);
+        return BooleanKits.toBooleanObject(stringResult);
     }
-
 
     /**
      * 读取Boolean类型的系统变量，为空时返回默认值, 而不是Boolean.getBoolean()的false.
-     *
-     * @param name
-     * @param defaultValue
-     * @return
      */
     public static Boolean getBoolean(String name, Boolean defaultValue) {
         String stringResult = System.getProperty(name);
-        return toBooleanObject(stringResult, defaultValue);
+        return BooleanKits.toBooleanObject(stringResult, defaultValue);
     }
 
     /**
      * 读取String类型的系统变量，为空时返回null.
-     *
-     * @param name
-     * @return
      */
     public static String getString(String name) {
         return System.getProperty(name);
@@ -93,14 +80,14 @@ public class SystemPropertiesKits {
      * 读取Double类型的系统变量，为空时返回null.
      */
     public static Double getDouble(String propertyName) {
-        return toDoubleObject(System.getProperty(propertyName), null);
+        return NumberKits.parseNumber(System.getProperty(propertyName), Double.class, null);
     }
 
     /**
      * 读取Double类型的系统变量，为空时返回默认值.
      */
     public static Double getDouble(String propertyName, Double defaultValue) {
-        Double propertyValue = toDoubleObject(System.getProperty(propertyName), null);
+        Double propertyValue = NumberKits.parseNumber(System.getProperty(propertyName), Double.class, null);
         return propertyValue != null ? propertyValue : defaultValue;
     }
 
@@ -125,60 +112,56 @@ public class SystemPropertiesKits {
      */
     public static Integer getInteger(String propertyName, String envName, Integer defaultValue) {
         checkEnvName(envName);
-        Integer propertyValue = toIntObject(System.getProperty(propertyName), null);
+        Integer propertyValue = NumberKits.parseNumber(System.getProperty(propertyName), Integer.class, null);
         if (propertyValue != null) {
             return propertyValue;
         } else {
-            propertyValue = toIntObject(System.getenv(envName), null);
+            propertyValue = NumberKits.parseNumber(System.getenv(envName), Integer.class, null);
             return propertyValue != null ? propertyValue : defaultValue;
         }
     }
-
 
     /**
      * 合并系统变量(-D)，环境变量 和默认值，以系统变量优先
      */
     public static Long getLong(String propertyName, String envName, Long defaultValue) {
         checkEnvName(envName);
-        Long propertyValue = toLongObject(System.getProperty(propertyName), null);
+        Long propertyValue = NumberKits.parseNumber(System.getProperty(propertyName), Long.class, null);
         if (propertyValue != null) {
             return propertyValue;
         } else {
-            propertyValue = toLongObject(System.getenv(envName), null);
+            propertyValue = NumberKits.parseNumber(System.getenv(envName), Long.class, null);
             return propertyValue != null ? propertyValue : defaultValue;
         }
     }
-
 
     /**
      * 合并系统变量(-D)，环境变量 和默认值，以系统变量优先
      */
     public static Double getDouble(String propertyName, String envName, Double defaultValue) {
         checkEnvName(envName);
-        Double propertyValue = toDoubleObject(System.getProperty(propertyName), null);
+        Double propertyValue = NumberKits.parseNumber(System.getProperty(propertyName), Double.class, null);
         if (propertyValue != null) {
             return propertyValue;
         } else {
-            propertyValue = toDoubleObject(System.getenv(envName), null);
+            propertyValue = NumberKits.parseNumber(System.getenv(envName), Double.class, null);
             return propertyValue != null ? propertyValue : defaultValue;
         }
     }
-
 
     /**
      * 合并系统变量(-D)，环境变量 和默认值，以系统变量优先
      */
     public static Boolean getBoolean(String propertyName, String envName, Boolean defaultValue) {
         checkEnvName(envName);
-        Boolean propertyValue = toBooleanObject(System.getProperty(propertyName), null);
+        Boolean propertyValue = BooleanKits.toBooleanObject(System.getProperty(propertyName), null);
         if (propertyValue != null) {
             return propertyValue;
         } else {
-            propertyValue = toBooleanObject(System.getenv(envName), null);
+            propertyValue = BooleanKits.toBooleanObject(System.getenv(envName), null);
             return propertyValue != null ? propertyValue : defaultValue;
         }
     }
-
 
     /**
      * 检查环境变量名不能有'.'，在linux下不支持
@@ -208,47 +191,6 @@ public class SystemPropertiesKits {
         }
 
         ((ListenableProperties) currentProperties).register(listener);
-    }
-
-    private static Boolean toBooleanObject(String str, Boolean defaultValue) {
-        return str != null ? Boolean.valueOf(str) : defaultValue;
-    }
-
-    private static Double toDoubleObject(String str, Double defaultValue) {
-        if (StringUtils.isEmpty(str)) {
-            return defaultValue;
-        }
-        try {
-            return Double.valueOf(str);
-        } catch (final NumberFormatException nfe) {
-            return defaultValue;
-        }
-    }
-
-    private static Long toLongObject(String str, Long defaultValue) {
-        if (StringUtils.isEmpty(str)) {
-            return defaultValue;
-        }
-        try {
-            return Long.valueOf(str);
-        } catch (final NumberFormatException nfe) {
-            return defaultValue;
-        }
-    }
-
-    private static Integer toIntObject(String str, Integer defaultValue) {
-        if (StringUtils.isEmpty(str)) {
-            return defaultValue;
-        }
-        try {
-            return Integer.valueOf(str);
-        } catch (final NumberFormatException nfe) {
-            return defaultValue;
-        }
-    }
-
-    private static Boolean toBooleanObject(String str) {
-        return Boolean.parseBoolean(str);
     }
 
     /**

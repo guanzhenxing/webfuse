@@ -1,6 +1,6 @@
 package cn.webfuse.ext.kit;
 
-import cn.webfuse.core.kit.DateFormatKits;
+import cn.webfuse.core.kit.date.DateFormatKits;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;

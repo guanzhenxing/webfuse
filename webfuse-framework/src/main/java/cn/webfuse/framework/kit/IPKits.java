@@ -6,12 +6,14 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
 
-import cn.webfuse.core.kit.NumberKits;
-import cn.webfuse.core.kit.StringKits;
+import cn.webfuse.core.kit.number.NumberKits;
+import cn.webfuse.core.kit.text.StringKits;
 import com.google.common.net.InetAddresses;
+import com.google.common.primitives.Ints;
 
 
 /**
+ * copy from vjtools
  * InetAddress工具类，基于Guava的InetAddresses.
  * <p>
  * 主要包含int, String/IPV4String, InetAdress/Inet4Address之间的互相转换
@@ -97,7 +99,7 @@ public class IPKits {
         if (byteAddress == null) {
             return 0;
         } else {
-            return NumberKits.toInt(byteAddress);
+            return Ints.fromByteArray(byteAddress);
         }
     }
 

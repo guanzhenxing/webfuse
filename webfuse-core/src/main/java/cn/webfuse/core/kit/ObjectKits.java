@@ -1,5 +1,7 @@
 package cn.webfuse.core.kit;
 
+import cn.webfuse.core.kit.number.NumberKits;
+import cn.webfuse.core.kit.reflect.ClassKits;
 import com.google.common.base.Objects;
 
 import java.math.BigDecimal;
@@ -7,16 +9,15 @@ import java.math.BigInteger;
 import java.util.Arrays;
 
 /**
- * Object工具类
- * <p>
- * copy from vipshop VJTools(com.vip.vjtools.vjkit.base.ObjectUtil) and made some changes.
+ * 对象工具类
  */
 public class ObjectKits {
 
-    private static final String NULL = "null";
 
     /**
      * JDK7 引入的Null安全的equals
+     * <p>
+     * copy from vjtools
      */
     public static boolean equals(Object a, Object b) {
         return Objects.equal(a, b);
@@ -24,11 +25,41 @@ public class ObjectKits {
 
     /**
      * 多个对象的HashCode串联, 组成新的HashCode
+     * <p>
+     * copy from vjtools
      */
     public static int hashCode(Object... objects) {
         return Arrays.hashCode(objects);
     }
 
+    /**
+     * 对象的toString(), 处理了对象为数组的情况，JDK的默认toString()只打数组的地址如 "[Ljava.lang.Integer;@490d6c15.
+     * <p>
+     * copy from vjtools
+     */
+    public static String toPrettyString(Object value) {
+        if (value == null) {
+            return "null";
+        }
+
+        Class<?> type = value.getClass();
+
+        if (type.isArray()) {
+            Class componentType = type.getComponentType();
+
+            if (componentType.isPrimitive()) {
+                return primitiveArrayToString(value, componentType);
+            } else {
+                return objectArrayToString(value);
+            }
+        } else if (value instanceof Iterable) {
+            // 因为Collection的处理也是默认调用元素的toString(),
+            // 为了处理元素是数组的情况，同样需要重载
+            return collectionToString(value);
+        }
+
+        return value.toString();
+    }
 
     /**
      * 将对象转为指定的类型
@@ -71,32 +102,6 @@ public class ObjectKits {
         return (T) newVal;
     }
 
-    /**
-     * 对象的toString(), 处理了对象为数组的情况，JDK的默认toString()只打数组的地址如 "[Ljava.lang.Integer;@490d6c15.
-     */
-    public static String toPrettyString(Object value) {
-        if (value == null) {
-            return NULL;
-        }
-
-        Class<?> type = value.getClass();
-        if (type.isArray()) {
-            Class componentType = type.getComponentType();
-
-            if (componentType.isPrimitive()) {
-                return primitiveArrayToString(value, componentType);
-            } else {
-                return objectArrayToString(value);
-            }
-        } else if (value instanceof Iterable) {
-            // 因为Collection的处理也是默认调用元素的toString(),
-            // 为了处理元素是数组的情况，同样需要重载
-            return collectionToString(value);
-        }
-
-        return value.toString();
-    }
-
     private static String primitiveArrayToString(Object value, Class componentType) {
         StringBuilder sb = new StringBuilder();
 
@@ -117,8 +122,9 @@ public class ObjectKits {
         } else if (componentType == char.class) {
             sb.append(Arrays.toString((char[]) value));
         } else {
-            throw new IllegalArgumentException("unsupported array type");
+            throw new IllegalArgumentException("unsupport array type");
         }
+
         return sb.toString();
     }
 
@@ -152,5 +158,4 @@ public class ObjectKits {
         sb.append('}');
         return sb.toString();
     }
-
 }

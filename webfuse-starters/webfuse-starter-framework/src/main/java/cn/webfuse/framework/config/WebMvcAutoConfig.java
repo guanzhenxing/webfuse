@@ -1,14 +1,19 @@
 package cn.webfuse.framework.config;
 
+import cn.webfuse.core.kit.collection.ListKits;
 import cn.webfuse.framework.config.properties.WebMvcProperties;
 import cn.webfuse.framework.context.SpringContextHolder;
 import cn.webfuse.framework.web.method.UrlQueriesSnakeToCamelServletModelAttributeMethodProcessor;
 import cn.webfuse.framework.web.version.ApiVersionRequestMappingHandlerMapping;
+import cn.webfuse.framework.web.xss.XssFilter;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +29,9 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 自动WebMvc配置
@@ -124,6 +131,26 @@ public class WebMvcAutoConfig {
                 });
             }
         };
+    }
+
+    /**
+     * xss过滤拦截器
+     */
+    @Bean
+    @ConditionalOnProperty(prefix = PROPERTIES_PREFIX, name = "xss.enabled", matchIfMissing = true)
+    public FilterRegistrationBean xssFilterRegistrationBean() {
+
+        List<String> urlPatterns = webMvcProperties.getXss().getUrlPatterns();
+        XssFilter xssFilter = new XssFilter();
+        xssFilter.setUrlExclusion(webMvcProperties.getXss().getUrlExclusion());
+
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+        filterRegistrationBean.setFilter(xssFilter);
+        filterRegistrationBean.setOrder(1);
+        filterRegistrationBean.setEnabled(true);
+        filterRegistrationBean.addUrlPatterns(urlPatterns.stream().toArray(String[]::new));
+        filterRegistrationBean.setName(webMvcProperties.getXss().getFilterName());
+        return filterRegistrationBean;
     }
 
 

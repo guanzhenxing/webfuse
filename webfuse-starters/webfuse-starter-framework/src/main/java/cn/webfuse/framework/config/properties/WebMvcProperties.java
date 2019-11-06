@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -34,6 +35,12 @@ public class WebMvcProperties {
      * cors
      */
     private Cors cors = new Cors();
+
+
+    /**
+     * xss
+     */
+    private Xss xss = new Xss();
 
     @Data
     @NoArgsConstructor
@@ -152,5 +159,29 @@ public class WebMvcProperties {
             private String exposedHeaders = "";
 
         }
+    }
+
+    @Data
+    @NoArgsConstructor
+    public static class Xss {
+        /**
+         * 是否使用XSS
+         */
+        private boolean enabled = true;
+
+        /**
+         * 排除的url
+         */
+        private List<String> urlExclusion;
+
+        /**
+         * array of URL patterns to which this Filter applies
+         */
+        private List<String> urlPatterns = Arrays.asList("/*");
+
+        /**
+         * filter的名称
+         */
+        private String filterName = "xssFilter";
     }
 }

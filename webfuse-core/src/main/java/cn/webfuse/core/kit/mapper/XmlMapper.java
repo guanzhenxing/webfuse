@@ -2,7 +2,7 @@ package cn.webfuse.core.kit.mapper;
 
 
 import cn.webfuse.core.kit.ExceptionKits;
-import cn.webfuse.core.kit.ClassKits;
+import cn.webfuse.core.kit.reflect.ClassKits;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 

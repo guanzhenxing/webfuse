@@ -8,7 +8,9 @@ import java.util.function.Function;
 
 /**
  * 当lambda中遇到try-catch的时候可以使用这个进行
- * https://segmentfault.com/a/1190000007832130
+ * <p>
+ *
+ * @see: https://segmentfault.com/a/1190000007832130
  */
 @Slf4j
 public class TryCatchKits {
@@ -52,7 +54,7 @@ public class TryCatchKits {
             }
         };
     }
-    
+
     @FunctionalInterface
     public interface UncheckedFunction<T, R> {
         /**

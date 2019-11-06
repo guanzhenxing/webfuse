@@ -1,6 +1,6 @@
 package cn.webfuse.core.kit.id;
 
-import cn.webfuse.core.kit.ClassLoaderKits;
+import cn.webfuse.core.kit.reflect.ClassLoaderKits;
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 
