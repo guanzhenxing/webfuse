@@ -5,6 +5,9 @@ import cn.webfuse.framework.context.SpringContextHolder;
 import cn.webfuse.framework.web.method.UrlQueriesSnakeToCamelServletModelAttributeMethodProcessor;
 import cn.webfuse.framework.web.version.ApiVersionRequestMappingHandlerMapping;
 import cn.webfuse.framework.web.xss.XssFilter;
+import cn.webfuse.framework.web.xss.XssJsonDeserializer;
+import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -143,20 +146,21 @@ public class WebMvcAutoConfig {
         return filterRegistrationBean;
     }
 
+    /**
+     * 对RequestBody中的Json进行Xss过滤拦截，使用Jackson的Model
+     *
+     * @return
+     */
+    @Bean
+    @ConditionalOnProperty(prefix = PROPERTIES_PREFIX, name = "xss.enabled", matchIfMissing = true)
+    public Module xssModule() {
+        SimpleModule xssModule = new SimpleModule("xssModel");
+        xssModule.addDeserializer(String.class, new XssJsonDeserializer());
+        return xssModule;
+    }
 
-//    /**
-//     * 配置属性自定义转换
-//     *
-//     * @return
-//     */
-//    @Bean
-//    public CustomEditorConfigurer customEditorConfigurer() {
-//        CustomEditorConfigurer customEditorConfigurer = new CustomEditorConfigurer();
-//        customEditorConfigurer.setPropertyEditorRegistrars(new PropertyEditorRegistrar[]{CustomPropertyEditorRegistrarBuilder.escapeString()});
-//
-//
-//        return customEditorConfigurer;
-//    }
+
+
 
 
 //类似这样的可以添加一些配置

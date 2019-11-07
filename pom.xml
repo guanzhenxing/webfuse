@@ -21,25 +21,25 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!--for spring-->
-        <spring-boot.version>2.1.5.RELEASE</spring-boot.version>
+        <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
 
         <!--for utils-->
         <guava.version>27.0-jre</guava.version>
-        <commons-lang3.version>3.7</commons-lang3.version>
+        <commons-lang3.version>3.9</commons-lang3.version>
         <commons-text.version>1.4</commons-text.version>
         <commons-io.version>2.6</commons-io.version>
-        <commons-codec.version>1.11</commons-codec.version>
+        <commons-codec.version>1.13</commons-codec.version>
         <dozer.version>6.4.0</dozer.version>
-        <jackson.version>2.9.9</jackson.version>
-        <slf4j.version>1.7.25</slf4j.version>
-        <log4j.version>2.11.1</log4j.version>
-        <lombok.version>1.18.2</lombok.version>
-        <hibernate-validator.veseion>6.0.14.Final</hibernate-validator.veseion>
+        <jackson.version>2.10.0</jackson.version>
+        <slf4j.version>1.7.29</slf4j.version>
+        <log4j.version>2.12.1</log4j.version>
+        <lombok.version>1.18.10</lombok.version>
+        <hibernate-validator.veseion>6.0.18.Final</hibernate-validator.veseion>
 
         <!--for test-->
         <junit.version>4.12</junit.version>
-        <assertj.version>2.6.0</assertj.version>
-        <mockito.version>2.18.3</mockito.version>
+        <assertj.version>3.13.2</assertj.version>
+        <mockito.version>3.1.0</mockito.version>
 
         <!--for swagger-->
         <swagger-spring-boot-starter.version>1.9.0.RELEASE</swagger-spring-boot-starter.version>

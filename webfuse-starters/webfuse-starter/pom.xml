@@ -16,7 +16,7 @@
 
         <dependency>
             <groupId>cn.webfuse</groupId>
-            <artifactId>webfuse-starter-framework</artifactId>
+            <artifactId>webfuse-starter-mvc</artifactId>
             <version>${project.version}</version>
         </dependency>
 
