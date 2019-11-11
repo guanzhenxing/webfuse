@@ -1,4 +1,4 @@
-package cn.webfuse.core.kit.security;
+package cn.webfuse.core.kit.crypto;
 
 import cn.webfuse.core.kit.ExceptionKits;
 import org.apache.commons.codec.binary.Hex;
