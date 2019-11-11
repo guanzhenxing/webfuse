@@ -12,7 +12,7 @@ import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
 import java.beans.PropertyEditorSupport;
 
 /**
- * 自定义ConfigurableWebBindingInitializer
+ * 配置属性自定义转换
  *
  * @author Jesen
  */
@@ -58,11 +58,3 @@ public class WebBindingInitializerConfig {
 
 
 }
-
-/**
- * * https://www.logicbig.com/tutorials/spring-framework/spring-boot/custom-web-binding-initializer.html
- * * <p>
- * * https://blog.csdn.net/Michean/article/details/90901450
- * * <p>
- * * https://segmentfault.com/a/1190000016941868
- */
