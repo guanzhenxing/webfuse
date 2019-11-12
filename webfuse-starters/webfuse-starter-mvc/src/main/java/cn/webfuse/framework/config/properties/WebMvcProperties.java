@@ -52,7 +52,23 @@ public class WebMvcProperties {
         /**
          * API版本控制前缀正则表达式
          */
-        private String prefix;
+        private String versionPrefix;
+        /**
+         * 最小的版本号
+         */
+        private int minimumVersion = 1;
+
+        /**
+         * 解析包版本
+         */
+        private boolean parsePackageVersion = true;
+
+        /**
+         * 版本号的标志
+         */
+        private String VersionFlag = "{version}";
+
+
     }
 
     @Data

@@ -79,7 +79,10 @@ public class WebMvcAutoConfig {
             @Override
             public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
                 ApiVersionRequestMappingHandlerMapping mapping = new ApiVersionRequestMappingHandlerMapping();
-                mapping.setVersionPrefix(webMvcProperties.getApiVersion().getPrefix());
+                mapping.setVersionPrefix(webMvcProperties.getApiVersion().getVersionPrefix());
+                mapping.setMinimumVersion(webMvcProperties.getApiVersion().getMinimumVersion());
+                mapping.setParsePackageVersion(webMvcProperties.getApiVersion().isParsePackageVersion());
+                mapping.setVersionFlag(webMvcProperties.getApiVersion().getVersionFlag());
                 return mapping;
             }
         };
@@ -158,9 +161,6 @@ public class WebMvcAutoConfig {
         xssModule.addDeserializer(String.class, new XssJsonDeserializer());
         return xssModule;
     }
-
-
-
 
 
 //类似这样的可以添加一些配置
