@@ -1,4 +1,4 @@
-package cn.webfuse.framework.exception;
+package cn.webfuse.core.constant;
 
 import cn.webfuse.core.exception.ErrorCode;
 import lombok.AllArgsConstructor;
@@ -18,20 +18,6 @@ import lombok.Getter;
  */
 public enum BaseErrorCode implements ErrorCode {
 
-    /**
-     * 系统错误
-     */
-    SYSTEM_ERROR(500, "SYSTEM_ERROR"),
-
-    /**
-     * 系统无法访问
-     */
-    SERVICE_UNAVAILABLE(503, "SERVICE_UNAVAILABLE"),
-
-    /**
-     * 远程服务错误
-     */
-    REMOTE_SERVICE_ERROR(500, "REMOTE_SERVICE_ERROR"),
 
     /**
      * 请求的链接/接口不存在
@@ -67,6 +53,29 @@ public enum BaseErrorCode implements ErrorCode {
      * 不支持的mediaType
      */
     UNSUPPORTED_MEDIA_TYPE(415, "UNSUPPORTED_MEDIA_TYPE"),
+
+
+    /**
+     * 表示在一定的时间内用户发送了太多的请求，即超出了“频次限制”
+     */
+    TOO_MANY_REQUESTS(429, "TOO_MANY_REQUESTS"),
+
+
+    /**
+     * 系统错误
+     */
+    SYSTEM_ERROR(500, "SYSTEM_ERROR"),
+
+
+    /**
+     * 远程服务错误
+     */
+    REMOTE_SERVICE_ERROR(500, "REMOTE_SERVICE_ERROR"),
+
+    /**
+     * 系统无法访问（请求接口超过调用频率限制等）
+     */
+    SERVICE_UNAVAILABLE(503, "SERVICE_UNAVAILABLE"),
 
 
     ;

@@ -1,6 +1,6 @@
 package cn.webfuse.framework.exception.handle.impl;
 
-import cn.webfuse.framework.exception.BaseErrorCode;
+import cn.webfuse.core.constant.BaseErrorCode;
 import cn.webfuse.framework.exception.BaseWebfuseException;
 import cn.webfuse.framework.exception.handle.RestfulError;
 import cn.webfuse.framework.exception.handle.RestfulErrorResolver;

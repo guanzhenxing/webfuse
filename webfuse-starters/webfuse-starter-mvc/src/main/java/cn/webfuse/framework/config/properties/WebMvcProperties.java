@@ -1,6 +1,6 @@
 package cn.webfuse.framework.config.properties;
 
-import cn.webfuse.framework.exception.BaseErrorCode;
+import cn.webfuse.core.constant.BaseErrorCode;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;

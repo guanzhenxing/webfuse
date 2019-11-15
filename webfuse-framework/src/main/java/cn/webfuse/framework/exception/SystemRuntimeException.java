@@ -1,5 +1,6 @@
 package cn.webfuse.framework.exception;
 
+import cn.webfuse.core.constant.BaseErrorCode;
 import cn.webfuse.core.exception.ErrorCode;
 
 import java.util.HashMap;

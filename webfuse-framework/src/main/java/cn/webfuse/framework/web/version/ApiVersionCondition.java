@@ -1,7 +1,7 @@
 package cn.webfuse.framework.web.version;
 
 import cn.webfuse.framework.exception.ApiVersionException;
-import cn.webfuse.framework.exception.BaseErrorCode;
+import cn.webfuse.core.constant.BaseErrorCode;
 import org.apache.commons.collections.map.SingletonMap;
 import org.springframework.web.servlet.mvc.condition.RequestCondition;
 

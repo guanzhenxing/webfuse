@@ -2,7 +2,7 @@ package cn.webfuse.framework.config;
 
 import cn.webfuse.core.exception.ErrorCode;
 import cn.webfuse.framework.config.properties.WebMvcProperties;
-import cn.webfuse.framework.exception.BaseErrorCode;
+import cn.webfuse.core.constant.BaseErrorCode;
 import cn.webfuse.framework.exception.BaseWebfuseException;
 import cn.webfuse.framework.exception.handle.impl.Default404ErrorController;
 import cn.webfuse.framework.exception.handle.impl.DefaultRestfulErrorConverter;
