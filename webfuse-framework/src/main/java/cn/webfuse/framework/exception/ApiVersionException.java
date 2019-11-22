@@ -7,12 +7,12 @@ import java.util.Map;
 
 public class ApiVersionException extends BaseWebfuseException {
 
-    public ApiVersionException(ErrorCode errorCode, Map<String, Object> data) {
-        super(errorCode, data);
+    public ApiVersionException(ErrorCode errorCode, Map<String, Object> extra) {
+        super(errorCode, extra);
     }
 
-    public ApiVersionException(ErrorCode errorCode, Map<String, Object> data, Throwable cause) {
-        super(errorCode, data, cause);
+    public ApiVersionException(ErrorCode errorCode, Map<String, Object> extra, Throwable cause) {
+        super(errorCode, extra, cause);
     }
 
     public ApiVersionException(Throwable cause) {

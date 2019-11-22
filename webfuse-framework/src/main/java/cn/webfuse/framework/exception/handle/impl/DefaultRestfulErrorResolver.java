@@ -196,7 +196,7 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
         String message = restfulError.getMessage();
         String developerMessage = restfulError.getDetail().getDeveloperMessage();
         String document = restfulError.getDetail().getDocument();
-        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> extra = new HashMap<>();
 
         //如果异常继承于BaseWebfuseException时的处理
         if (ex instanceof BaseWebfuseException) {
@@ -208,7 +208,7 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
             }
             message = ((BaseWebfuseException) ex).getErrorCode().getMessage();
             developerMessage = StringUtils.join(ex.getStackTrace(), "\n");
-            data = ((BaseWebfuseException) ex).getData();
+            extra = ((BaseWebfuseException) ex).getExtra();
         }
 
         if (StringUtils.isEmpty(message)) {
@@ -225,7 +225,7 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
         RestfulError.ErrorDetail errorDetail = new RestfulError.ErrorDetail();
         errorDetail.setDeveloperMessage(developerMessage);
         errorDetail.setDocument(document);
-        errorDetail.setData(MapUtils.isNotEmpty(data) ? data : null);
+        errorDetail.setExtra(MapUtils.isNotEmpty(extra) ? extra : null);
         errorDetail.setThrowable(ex);
 
         return new RestfulError(httpStatus, code, message, errorDetail);

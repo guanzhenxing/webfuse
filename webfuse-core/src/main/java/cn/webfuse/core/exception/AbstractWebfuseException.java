@@ -15,27 +15,27 @@ import java.util.Map;
 public abstract class AbstractWebfuseException extends RuntimeException {
 
     private final ErrorCode errorCode;
-    private final Map<String, Object> data = new HashMap<>();
+    private final Map<String, Object> extra = new HashMap<>();
 
-    public AbstractWebfuseException(ErrorCode errorCode, Map<String, Object> data) {
-        super(format(errorCode.getCode(), errorCode.getMessage(), data));
+    public AbstractWebfuseException(ErrorCode errorCode, Map<String, Object> extra) {
+        super(format(errorCode.getCode(), errorCode.getMessage(), extra));
         this.errorCode = errorCode;
-        if (!MapUtils.isEmpty(data)) {
-            this.data.putAll(data);
+        if (!MapUtils.isEmpty(extra)) {
+            this.extra.putAll(extra);
         }
     }
 
-    public AbstractWebfuseException(ErrorCode errorCode, Map<String, Object> data, Throwable cause) {
-        super(format(errorCode.getCode(), errorCode.getMessage(), data), cause);
+    public AbstractWebfuseException(ErrorCode errorCode, Map<String, Object> extra, Throwable cause) {
+        super(format(errorCode.getCode(), errorCode.getMessage(), extra), cause);
         this.errorCode = errorCode;
-        if (!MapUtils.isEmpty(data)) {
-            this.data.putAll(data);
+        if (!MapUtils.isEmpty(extra)) {
+            this.extra.putAll(extra);
         }
     }
 
 
-    private static String format(String code, String message, Map<String, Object> data) {
-        return String.format("[%s]%s:%s.", code, message, MapUtils.isEmpty(data) ? "" : data.toString());
+    private static String format(String code, String message, Map<String, Object> extra) {
+        return String.format("[%s]%s:%s.", code, message, MapUtils.isEmpty(extra) ? "" : extra.toString());
     }
 }
 

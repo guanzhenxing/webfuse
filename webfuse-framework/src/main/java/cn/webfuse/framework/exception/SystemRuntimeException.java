@@ -13,12 +13,12 @@ import java.util.Map;
  */
 public class SystemRuntimeException extends BaseWebfuseException {
 
-    public SystemRuntimeException(ErrorCode errorCode, Map<String, Object> data) {
-        super(errorCode, data);
+    public SystemRuntimeException(ErrorCode errorCode, Map<String, Object> extra) {
+        super(errorCode, extra);
     }
 
-    public SystemRuntimeException(ErrorCode errorCode, Map<String, Object> data, Throwable cause) {
-        super(errorCode, data, cause);
+    public SystemRuntimeException(ErrorCode errorCode, Map<String, Object> extra, Throwable cause) {
+        super(errorCode, extra, cause);
     }
 
     public SystemRuntimeException(Throwable cause) {
@@ -29,8 +29,8 @@ public class SystemRuntimeException extends BaseWebfuseException {
         this(BaseErrorCode.SYSTEM_ERROR, new HashMap<>());
     }
 
-    public SystemRuntimeException(Map<String, Object> data) {
-        this(BaseErrorCode.SYSTEM_ERROR, data);
+    public SystemRuntimeException(Map<String, Object> extra) {
+        this(BaseErrorCode.SYSTEM_ERROR, extra);
     }
 
 

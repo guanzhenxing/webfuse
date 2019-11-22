@@ -63,7 +63,7 @@ public class RestfulError {
         /**
          * 额外数据
          */
-        private Map<String, Object> data;
+        private Map<String, Object> extra;
         /**
          * 异常
          */

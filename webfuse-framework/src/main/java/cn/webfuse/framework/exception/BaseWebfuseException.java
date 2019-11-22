@@ -10,12 +10,12 @@ import static com.google.common.collect.ImmutableMap.of;
 
 public class BaseWebfuseException extends AbstractWebfuseException {
 
-    public BaseWebfuseException(ErrorCode errorCode, Map<String, Object> data) {
-        super(errorCode, data);
+    public BaseWebfuseException(ErrorCode errorCode, Map<String, Object> extra) {
+        super(errorCode, extra);
     }
 
-    public BaseWebfuseException(ErrorCode errorCode, Map<String, Object> data, Throwable cause) {
-        super(errorCode, data, cause);
+    public BaseWebfuseException(ErrorCode errorCode, Map<String, Object> extra, Throwable cause) {
+        super(errorCode, extra, cause);
     }
 
     public BaseWebfuseException(Throwable cause) {
