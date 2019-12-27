@@ -1,19 +1,13 @@
 # webfuse-ext
 
+一些扩展功能库，为了在有需要的时候使用。
+
 ## modules
 
-### webufse-ext-kit
+### webfuse-ext-kit
 
-不常用（扩展）的工具类
+扩展的工具类
 
-## TODO
+### webfuse-ext-launch
 
-- webfuse-ext-logger
-- webfuse-ext-limiter
-- webfuse-ext-bloom
-- webfuse-ext-spring
-- webfuse-ext-monitor
-- webfuse-ext-http
-- webfuse-ext-excel
-- webfuse-ext-odata
-- webfuse-ext-qrcode
+应用程序的 启动/关闭 扩展

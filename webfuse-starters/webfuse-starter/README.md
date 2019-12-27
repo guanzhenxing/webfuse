@@ -1,57 +1,21 @@
-# webfuse-service-starter
+# webfuse-starter
 
-## 功能
+该启动器中包含各个启动器。
 
-- [swagger2支持](https://github.com/SpringForAll/spring-boot-starter-swagger)
+## 主要配置
 
-## 运维
+配置见各个启动器的配置
 
-### 如何优雅下线微服务
+## 文档和使用
 
-在想下线应用的application.yml 中添加配置，从而暴露/service-registry 端点：
+文档见：xxxx
 
-```yml
-management:
-  endpoints:
-    web:
-      exposure:
-        include: service-registry
+使用：在pom.xml中引入
 
+```xml
+ <dependency>
+    <groupId>cn.webfuse</groupId>
+    <artifactId>webfuse-starter</artifactId>
+    <version>1.0.1</version>
+</dependency>
 ```
-
-发送：`curl -X "POST" "http://localhost:8000/actuator/service-registry?status=DOWN" \
-       -H "Content-Type: application/vnd.spring-boot.actuator.v2+json;charset=UTF-8"
-`
-
-
-
-TODO LIST
-
-- 版本控制配置
-
-spring-boot-autoconfigure：
-
-- [了解 Spring Boot AutoConfiguration](https://www.cnblogs.com/oopsguy/p/7484398.html)
-- [SpringBoot使用AutoConfiguration自定义Starter](https://www.jianshu.com/p/188065e1137b) *
-
------
-- @ConditionalOnBean：当SpringIoc容器内存在指定Bean的条件
-- @ConditionalOnClass：当SpringIoc容器内存在指定Class的条件
-- @ConditionalOnExpression：基于SpEL表达式作为判断条件
-- @ConditionalOnJava：基于JVM版本作为判断条件
-- @ConditionalOnJndi：在JNDI存在时查找指定的位置
-- @ConditionalOnMissingBean：当SpringIoc容器内不存在指定Bean的条件
-- @ConditionalOnMissingClass：当SpringIoc容器内不存在指定Class的条件
-- @ConditionalOnNotWebApplication：当前项目不是Web项目的条件
-- @ConditionalOnProperty：指定的属性是否有指定的值
-- @ConditionalOnResource：类路径是否有指定的值
-- @ConditionalOnSingleCandidate：当指定Bean在SpringIoc容器内只有一个，或者虽然有多个但是指定首选的Bean
-- @ConditionalOnWebApplication：当前项目是Web项目的条件
-
-
-- mica项目的launcher
-
-
-
-
-

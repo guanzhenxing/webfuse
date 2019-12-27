@@ -1,34 +1,37 @@
 package cn.webfuse.framework.exception;
 
-import cn.webfuse.framework.core.exception.AbstractBizException;
+import cn.webfuse.core.constant.BaseErrorCode;
+import cn.webfuse.core.exception.ErrorCode;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 系统运行时异常
  *
  * @author Jesen
  */
-public class SystemRuntimeException extends AbstractBizException {
+public class SystemRuntimeException extends BaseWebfuseException {
 
-    public SystemRuntimeException(int status, String code, String message, Throwable throwable, String developerMessage) {
-        super(status, code, message, throwable, developerMessage);
+    public SystemRuntimeException(ErrorCode errorCode, Map<String, Object> extra) {
+        super(errorCode, extra);
     }
 
-    public SystemRuntimeException(int status, String code, String message, Throwable throwable) {
-        super(status, code, message, throwable);
+    public SystemRuntimeException(ErrorCode errorCode, Map<String, Object> extra, Throwable cause) {
+        super(errorCode, extra, cause);
     }
 
-    public SystemRuntimeException(int status, String code, String message) {
-        super(status, code, message);
-    }
-
-    public SystemRuntimeException(String code, String message) {
-        super(code, message);
-    }
-
-    public SystemRuntimeException(String message) {
-        super(message);
+    public SystemRuntimeException(Throwable cause) {
+        super(cause);
     }
 
     public SystemRuntimeException() {
+        this(BaseErrorCode.SYSTEM_ERROR, new HashMap<>());
     }
+
+    public SystemRuntimeException(Map<String, Object> extra) {
+        this(BaseErrorCode.SYSTEM_ERROR, extra);
+    }
+
+
 }

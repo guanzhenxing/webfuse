@@ -5,7 +5,7 @@
     <parent>
         <artifactId>webfuse</artifactId>
         <groupId>cn.webfuse</groupId>
-        <version>1.0</version>
+        <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -14,7 +14,7 @@
 
     <modules>
         <module>webfuse-starter</module>
-        <module>webfuse-starter-framework</module>
+        <module>webfuse-starter-mvc</module>
     </modules>
 
 

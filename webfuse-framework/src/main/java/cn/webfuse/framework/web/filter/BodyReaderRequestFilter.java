@@ -20,7 +20,7 @@ import java.nio.charset.Charset;
  * @author Jesen
  */
 @Slf4j
-@WebFilter(urlPatterns = "/*", filterName = "bodyReaderRequestFilter")
+//@WebFilter(urlPatterns = "/*", filterName = "bodyReaderRequestFilter")
 public class BodyReaderRequestFilter implements Filter {
 
     @Override

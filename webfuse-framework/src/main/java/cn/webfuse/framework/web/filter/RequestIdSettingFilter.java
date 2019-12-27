@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Jesen
  */
-@WebFilter(filterName = "requestIdSettingFilter", value = "/*")
+//@WebFilter(filterName = "requestIdSettingFilter", value = "/*")
 @Slf4j
 public class RequestIdSettingFilter implements Filter {
 

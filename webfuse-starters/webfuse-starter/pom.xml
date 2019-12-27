@@ -5,7 +5,7 @@
     <parent>
         <groupId>cn.webfuse</groupId>
         <artifactId>webfuse-starters</artifactId>
-        <version>1.0</version>
+        <version>1.0.1</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -16,7 +16,7 @@
 
         <dependency>
             <groupId>cn.webfuse</groupId>
-            <artifactId>webfuse-starter-framework</artifactId>
+            <artifactId>webfuse-starter-mvc</artifactId>
             <version>${project.version}</version>
         </dependency>
 
