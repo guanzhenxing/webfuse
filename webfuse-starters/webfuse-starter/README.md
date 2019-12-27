@@ -16,6 +16,6 @@
  <dependency>
     <groupId>cn.webfuse</groupId>
     <artifactId>webfuse-starter</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2-snapshots</version>
 </dependency>
 ```
