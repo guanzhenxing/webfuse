@@ -38,9 +38,9 @@ public class WebBindingInitializerConfig {
         //initializer.setValidator(....);
 
         //装配自定义属性编辑器
-        initializer.setPropertyEditorRegistrar(propertyEditorRegistry -> {
-            stringEscapeHtml4(propertyEditorRegistry);
-        });
+//        initializer.setPropertyEditorRegistrar(propertyEditorRegistry -> {
+//            stringEscapeHtml4(propertyEditorRegistry);
+//        });
 
         return initializer;
     }

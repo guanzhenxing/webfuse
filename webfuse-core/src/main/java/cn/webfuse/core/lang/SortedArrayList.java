@@ -1,6 +1,8 @@
 // Copyright (c) 2003-present, Jodd Team (http://jodd.org)
 // All rights reserved.
 //
+//Further modifications copyright (c) 2019 by webfuse.cn
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //

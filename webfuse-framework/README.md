@@ -21,12 +21,6 @@ webfuse.mvc.restful-exception-handle.mappings[0].status=500
 webfuse.mvc.restful-exception-handle.mappings[0].code=INTERNAL SERVER ERROR
 ```
 
-### 记录访问日志
-
-1. 配置webfuse.logging.access.enabled=true
-2. 在需要日志的类或者方法上使用@AccessLogger
-3. 默认使用的是Logger去写日志，如果想要其他方式的写日志，可以继承LoggerWriter
-
 
 ## 主要配置
 
@@ -54,8 +48,4 @@ webfuse.mvc.restful-exception-handle.mappings[index].code= # 业务代码
 webfuse.mvc.restful-exception-handle.mappings[index].message= #返回出去的异常消息
 webfuse.mvc.restful-exception-handle.mappings[index].developer-message= # 开发者消息
 
-######
-# 日志信息
-######
-webfuse.logging.access.enabled=false    # 是否记录访问日志
 ```
