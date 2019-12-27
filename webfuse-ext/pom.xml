@@ -14,7 +14,6 @@
     <modules>
         <module>webfuse-ext-kit</module>
         <module>webfuse-ext-launch</module>
-        <module>webfuse-ext-rate-limiter</module>
     </modules>
 
 

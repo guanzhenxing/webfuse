@@ -6,17 +6,23 @@ webfuse 是基于 SpringBoot 的敏捷开发框架，包含了 JavaWeb 项目开
 
 ## 技术选型
 
-列出项目的技术栈，包括语言、框架和中间件等
+1. Java 8
+2. Maven3
+3. Spring Boot 2.2.1.RELEASE
 
-## 构建和使用
+## 项目模块
 
-列出本地开发过程中所用到的工具命令
+| 模块       | 说明          |    |
+| ------------- |:-------------:| ----|
+|[webfuse-core](webfuse-core)| 框架的核心，基础工具类 | |
+|[webfuse-ext](webfuse-ext)| 扩展功能库 | |
+|[webfuse-framework](webfuse-framework)| 基于 SpringBoot 的开发框架 | |
+|[webfuse-starters](webfuse-starters)| 各个模块的启动器 | |
 
-## 技术架构
 
-## 部署架构
+## 使用和文档
 
-## 编码实践
+各个模块的使用方法与文档详见各个模块的`README.md`
 
 ## FAQ
 

@@ -1,51 +1,49 @@
-# webfuse-commons-framework
+# webfuse-framework
 
-## 主要特性
+基于 SpringBoot 的开发框架
+
+## 特性
 
 ### API版本控制
 
-1. 配置webfuse.mvc.api-version.enabled=true
-2. 配置webfuse.mvc.prefix=API版本的前缀，默认为：^v([0-9]*)+(.[0-9]{1,3})?$
+基于 RequestCondition 和 RequestMappingHandlerMapping 的 API 版本控制。
+
+主要参考：
 
 - [API版本控制](https://www.hifreud.com/2018/01/30/01-API-versioning/)
 - [Spring Boot API 版本权限控制](https://blog.csdn.net/u010782227/article/details/74905404)
 
-### Restful异常处理
+详细的使用情况见：[webfuse-starters/webfuse-starter-mvc](../webfuse-starters/webfuse-starter-mvc)
 
-1. 配置webfuse.mvc.restful-exception-handle.enabled=true
-2. 配置mapping关系，如：
+### RESTful异常处理
 
-```
-webfuse.mvc.restful-exception-handle.mappings[0].clazz=cn.webfuse.framework.exception.BadParameterException
-webfuse.mvc.restful-exception-handle.mappings[0].status=500
-webfuse.mvc.restful-exception-handle.mappings[0].code=INTERNAL SERVER ERROR
-```
+为 RESTful API 提供一个方便的异常处理程序（解析程序），可以处理自定义异常，支持国际化，为异常处理提供一个统一的解决方案。
 
+主要类说明：
 
-## 主要配置
+- AbstractWebfuseException ： 抽象的业务异常
+- RestfulErrorResolver ： 接口类。是一个Restful错误解析器，提供解析错误的方法
+- RestfulErrorConverter ： RestfulError转换器，将RestfulError对象转换成其他对象。
+- DefaultRestfulExceptionHandler ： 默认的Restful异常处理分析器
+- DefaultRestfulErrorConverter ： 默认的RestfulError转换器，默认转换为Map。也就是在这里输出异常的格式
+- DefaultRestfulErrorResolver ： 默认的RestfulError解析器
 
-```
-######
-# i18n
-######
-webfuse.i18n.base-folder=i18n   # 指定的国际化文件目录
-webfuse.i18n.base-name=messages # 指定MessageSource指定的国际化文件
+详细的使用情况见：[webfuse-starters/webfuse-starter-mvc](../webfuse-starters/webfuse-starter-mvc)
 
-######
-# web mvc
-######
-webfuse.mvc.argument.snake-to-camel=false # 是否转换蛇形为驼峰型参数
+### Filters
 
-# API版本控制
-webfuse.mvc.api-version.enabled=true # 是否使用API版本控制
-webfuse.mvc.api-version.prefix=^v([0-9]*)+(.[0-9]{1,3})?$ # API版本控制的前缀
+提供了常用的 Filter：
 
-# Restful异常处理
-webfuse.mvc.restful-exception-handle.enabled=true   # 是否使用Restful异常处理
-webfuse.mvc.restful-exception-handle.mappings[index].clazz= # 待处理的异常类。如：cn.webfuse.framework.exception.BadParameterException
-webfuse.mvc.restful-exception-handle.mappings[index].status= # 状态码，最好为HttpStatus状态码。如：404，500
-webfuse.mvc.restful-exception-handle.mappings[index].code= # 业务代码
-webfuse.mvc.restful-exception-handle.mappings[index].message= #返回出去的异常消息
-webfuse.mvc.restful-exception-handle.mappings[index].developer-message= # 开发者消息
+- 设置 RequestId 的Filter （ RequestIdSettingFilter ）
+- 读取 RequestBody 的Filter ( BodyReaderRequestFilter )
 
-```
+### Web 安全
+
+- 防 XSS 攻击
+
+### 其他特性
+
+- URL 上的参数 `小写下划线参数` 转 `驼峰参数` 。
+- Spring 自动扫描的时候忽略注解（IgnoreDuringScan）
+- Spring 上下文工具类（SpringContextHolder）
+- 全局上下文的线程保存类（GlobalThreadLocalHolder）

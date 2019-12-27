@@ -1,6 +1,6 @@
 # webfuse-core
 
-webfuse-core包是一个基础类库包。
+webfuse-core是webfuse的框架核心，基础工具类。
 
 webfuse-core是在[VJTools](https://github.com/vipshop/vjtools)的基础上进行了一些修改。
 

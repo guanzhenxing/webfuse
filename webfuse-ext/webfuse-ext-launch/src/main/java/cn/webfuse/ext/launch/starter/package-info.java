@@ -1,0 +1,1 @@
+package cn.webfuse.ext.launch.starter;
