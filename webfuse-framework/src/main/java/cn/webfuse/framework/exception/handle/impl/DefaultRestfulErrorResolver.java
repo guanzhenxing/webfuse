@@ -164,7 +164,7 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
 
         Map<String, RestfulError> mappings = this.exceptionMappings;
         if (CollectionUtils.isEmpty(mappings)) {
-            int s = BaseErrorCode.SYSTEM_ERROR.getStatus();
+            int s = BaseErrorCode.SYSTEM_ERROR.getHttpStatus();
             String c = BaseErrorCode.SYSTEM_ERROR.getCode();
             String m = BaseErrorCode.SYSTEM_ERROR.getMessage();
             return new RestfulError(HttpStatus.valueOf(s), c, m, new RestfulError.ErrorDetail());
@@ -201,8 +201,8 @@ public class DefaultRestfulErrorResolver implements RestfulErrorResolver, Messag
         //如果异常继承于BaseWebfuseException时的处理
         if (ex instanceof BaseWebfuseException) {
             code = ((BaseWebfuseException) ex).getErrorCode().getCode();
-            if (((BaseWebfuseException) ex).getErrorCode().getStatus() != 0) {
-                httpStatus = HttpStatus.valueOf(((BaseWebfuseException) ex).getErrorCode().getStatus());
+            if (((BaseWebfuseException) ex).getErrorCode().getHttpStatus() != 0) {
+                httpStatus = HttpStatus.valueOf(((BaseWebfuseException) ex).getErrorCode().getHttpStatus());
             } else {
                 httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
             }

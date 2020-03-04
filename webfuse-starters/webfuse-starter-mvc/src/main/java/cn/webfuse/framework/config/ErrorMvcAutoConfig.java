@@ -183,14 +183,14 @@ public class ErrorMvcAutoConfig {
 
         List<DefaultRestfulErrorResolver.ExceptionDefinition> list = new ArrayList<>();
         // 400
-        applyDef(list, HttpMessageNotReadableException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.PARAMETER_ERROR);
-        applyDef(list, MissingServletRequestParameterException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.PARAMETER_ERROR);
-        applyDef(list, TypeMismatchException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.PARAMETER_ERROR);
-        applyDef(list, "javax.validation.ValidationException", HttpStatus.BAD_REQUEST, BaseErrorCode.PARAMETER_ERROR);
-        applyDef(list, BindException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.PARAMETER_ERROR);
-        applyDef(list, ServletRequestBindingException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.PARAMETER_ERROR);
-        applyDef(list, MethodArgumentNotValidException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.PARAMETER_ERROR);
-        applyDef(list, MissingServletRequestPartException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.PARAMETER_ERROR);
+        applyDef(list, HttpMessageNotReadableException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.BAD_REQUEST);
+        applyDef(list, MissingServletRequestParameterException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.BAD_REQUEST);
+        applyDef(list, TypeMismatchException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.BAD_REQUEST);
+        applyDef(list, "javax.validation.ValidationException", HttpStatus.BAD_REQUEST, BaseErrorCode.BAD_REQUEST);
+        applyDef(list, BindException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.BAD_REQUEST);
+        applyDef(list, ServletRequestBindingException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.BAD_REQUEST);
+        applyDef(list, MethodArgumentNotValidException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.BAD_REQUEST);
+        applyDef(list, MissingServletRequestPartException.class, HttpStatus.BAD_REQUEST, BaseErrorCode.BAD_REQUEST);
         // 404
         applyDef(list, NoHandlerFoundException.class, HttpStatus.NOT_FOUND, BaseErrorCode.REQUEST_URI_NOT_FOUND);
         // 405

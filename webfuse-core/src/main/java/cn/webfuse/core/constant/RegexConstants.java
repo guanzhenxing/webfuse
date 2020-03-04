@@ -10,7 +10,7 @@ public class RegexConstants {
     /**
      * 正则：手机号（简单）, 1字头＋10位数字即可.
      */
-    private static final String REGEX_MOBILE_SIMPLE = "^[1]\\d{10}$";
+    public static final String REGEX_MOBILE_SIMPLE = "^[1]\\d{10}$";
 
     /**
      * 正则：匹配所有号码（手机卡 + 数据卡 + 上网卡）
@@ -25,37 +25,37 @@ public class RegexConstants {
     /**
      * 正则：固定电话号码，可带区号，然后6至少8位数字
      */
-    private static final String REGEX_TEL = "^(\\d{3,4}-)?\\d{6,8}$";
+    public static final String REGEX_TEL = "^(\\d{3,4}-)?\\d{6,8}$";
 
     /**
      * 正则：身份证号码15位, 数字且关于生日的部分必须正确
      */
-    private static final String REGEX_ID_CARD15 = "^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$";
+    public static final String REGEX_ID_CARD15 = "^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$";
 
     /**
      * 正则：身份证号码18位, 数字且关于生日的部分必须正确
      */
-    private static final String REGEX_ID_CARD18 = "^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9Xx])$";
+    public static final String REGEX_ID_CARD18 = "^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9Xx])$";
 
     /**
      * 正则：邮箱, 有效字符(不支持中文), 且中间必须有@，后半部分必须有.
      */
-    private static final String REGEX_EMAIL = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
+    public static final String REGEX_EMAIL = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
 
     /**
      * 正则：URL, 必须有"://",前面必须是英文，后面不能有空格
      */
-    private static final String REGEX_URL = "[a-zA-z]+://[^\\s]*";
+    public static final String REGEX_URL = "[a-zA-z]+://[^\\s]*";
 
     /**
      * 正则：yyyy-MM-dd格式的日期校验，已考虑平闰年
      */
-    private static final String REGEX_DATE = "^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$";
+    public static final String REGEX_DATE = "^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$";
 
     /**
      * 正则：IP地址
      */
-    private static final String REGEX_IP = "((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)";
+    public static final String REGEX_IP = "((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)";
 
     /**
      * 正则：匹配中文字符

@@ -9,6 +9,8 @@ import org.springframework.util.MultiValueMap;
 
 /**
  * Restful返回值的封装。继承了ResponseEntity。
+ * <p>
+ * DELETE: 204 No Content
  *
  * @param <T> 返回的实体对象
  * @author Jesen
@@ -31,18 +33,45 @@ public class RestResponseWrapper<T> extends ResponseEntity<T> {
         super(body, headers, status);
     }
 
+    /**
+     * 用于POST请求，返回的状态是201
+     *
+     * @param body
+     * @param <T>
+     * @return
+     */
     public static <T> RestResponseWrapper<T> createdResponse(T body) {
         return new RestResponseWrapper(body, HttpStatus.CREATED);
     }
 
+    /**
+     * 用于GET、PUT、PATCH请求，返回的状态是200
+     *
+     * @param body
+     * @param <T>
+     * @return
+     */
     public static <T> RestResponseWrapper<T> okResponse(T body) {
         return new RestResponseWrapper<>(body, HttpStatus.OK);
     }
 
+    /**
+     * 用于DELETE请求，返回的状态是204
+     *
+     * @param <T>
+     * @return
+     */
     public static <T> RestResponseWrapper<T> noContentResponse() {
         return new RestResponseWrapper<>(HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * Bad Request请求
+     *
+     * @param code
+     * @param message
+     * @return
+     */
     public static RestResponseWrapper<RestfulError> badReRequestResponse(String code, String message) {
         return restfulError(HttpStatus.BAD_REQUEST, code, message);
     }

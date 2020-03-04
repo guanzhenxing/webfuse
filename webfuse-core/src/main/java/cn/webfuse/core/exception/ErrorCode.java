@@ -12,7 +12,7 @@ public interface ErrorCode {
      *
      * @return
      */
-    default int getStatus() {
+    default int getHttpStatus() {
         return 500;
     }
 
@@ -31,6 +31,6 @@ public interface ErrorCode {
      * @return
      */
     default String getCode() {
-        return "SYSTEM_ERROR";
+        return null;
     }
 }

@@ -108,7 +108,7 @@ public class WebMvcProperties {
         @NoArgsConstructor
         public static class Mapping {
             private String clazz;
-            private int status = BaseErrorCode.SYSTEM_ERROR.getStatus();
+            private int status = BaseErrorCode.SYSTEM_ERROR.getHttpStatus();
             private String code = BaseErrorCode.SYSTEM_ERROR.getCode();
             private String message = "";
             private String developerMessage = "";
