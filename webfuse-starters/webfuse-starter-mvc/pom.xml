@@ -5,7 +5,7 @@
     <parent>
         <artifactId>webfuse-starters</artifactId>
         <groupId>cn.webfuse</groupId>
-        <version>1.0.2-snapshots</version>
+        <version>1.0.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

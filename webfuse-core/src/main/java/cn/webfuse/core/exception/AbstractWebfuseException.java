@@ -37,5 +37,11 @@ public abstract class AbstractWebfuseException extends RuntimeException {
     private static String format(String code, String message, Map<String, Object> extra) {
         return String.format("[%s]%s:%s.", code, message, MapUtils.isEmpty(extra) ? "" : extra.toString());
     }
+
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return this;
+    }
+
 }
 

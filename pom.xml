@@ -6,7 +6,7 @@
 
     <groupId>cn.webfuse</groupId>
     <artifactId>webfuse</artifactId>
-    <version>1.0.2-snapshots</version>
+    <version>1.0.2</version>
 
     <packaging>pom</packaging>
 
