@@ -16,6 +16,6 @@ webfuse-framework 的启动器。提供了快速开始的方法，只需要配�
  <dependency>
     <groupId>cn.webfuse</groupId>
     <artifactId>webfuse-starter-mvc</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
