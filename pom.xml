@@ -24,7 +24,7 @@
         <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
 
         <!--for utils-->
-        <guava.version>27.0-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         <commons-lang3.version>3.9</commons-lang3.version>
         <commons-text.version>1.4</commons-text.version>
         <commons-io.version>2.6</commons-io.version>
