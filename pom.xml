@@ -30,7 +30,7 @@
         <commons-io.version>2.6</commons-io.version>
         <commons-codec.version>1.13</commons-codec.version>
         <dozer.version>6.4.0</dozer.version>
-        <jackson.version>2.10.0</jackson.version>
+        <jackson.version>2.12.6.1</jackson.version>
         <slf4j.version>1.7.29</slf4j.version>
         <log4j.version>2.12.1</log4j.version>
         <lombok.version>1.18.10</lombok.version>
